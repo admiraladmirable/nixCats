@@ -119,6 +119,9 @@
               lua-language-server
               nixd
               stylua
+              (pkgs.writeShellScriptBin "lazygit" ''
+                exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
+              '')
             ];
             kickstart-debug = [
               delve
