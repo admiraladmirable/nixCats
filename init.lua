@@ -22,110 +22,36 @@ vim.g.maplocalleader = ' '
 -- NOTE: nixCats: we asked nix if we have it instead of setting it here.
 -- because nix is more likely to know if we have a nerd font or not.
 vim.g.have_nerd_font = nixCats 'have_nerd_font'
-
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
--- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
-
--- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
-
--- Enable break indent
 vim.opt.breakindent = true
-
--- Save undo history
 vim.opt.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
--- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
-
--- Decrease update time
 vim.opt.updatetime = 250
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
 vim.opt.timeoutlen = 300
-
--- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
--- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
-
--- Show which line your cursor is on
 vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
-
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
--- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -165,16 +91,6 @@ local lazyOptions = {
   },
 }
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
 -- NOTE: Here is where you install your plugins.
 -- NOTE: nixCats: this the lazy wrapper. Use it like require('lazy').setup() but with an extra
 -- argument, the path to lazy.nvim as downloaded by nix, or nil, before the normal arguments.
@@ -232,28 +148,61 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show { global = false }
+        end,
+        desc = 'Buffer Keymaps (which-key)',
+      },
+      {
+        '<c-w><space>',
+        function()
+          require('which-key').show { keys = '<c-w>', loop = true }
+        end,
+        desc = 'Window Hydra Mode (which-key)',
+      },
+    },
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
 
       -- Document existing key chains
       require('which-key').add {
-        { '<leader>c', group = '[C]ode' },
-        { '<leader>c_', hidden = true },
-        { '<leader>d', group = '[D]ocument' },
-        { '<leader>d_', hidden = true },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>r_', hidden = true },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>s_', hidden = true },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>t_', hidden = true },
-        { '<leader>w', group = '[W]orkspace' },
-        { '<leader>w_', hidden = true },
+        mode = { 'n', 'v' },
+        { '<leader><tab>', group = 'tabs' },
+        { '<leader>c', group = 'code' },
+        { '<leader>d', group = 'debug' },
+        { '<leader>dp', group = 'profiler' },
+        { '<leader>f', group = 'file/find' },
+        { '<leader>g', group = 'git' },
+        { '<leader>gh', group = 'hunks' },
+        { '<leader>q', group = 'quit/session' },
+        { '<leader>s', group = 'search' },
+        { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
+        { '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
+        { '[', group = 'prev' },
+        { ']', group = 'next' },
+        { 'g', group = 'goto' },
+        { 'gs', group = 'surround' },
+        { 'z', group = 'fold' },
         {
-          mode = { 'v' },
-          { '<leader>h', group = 'Git [H]unk' },
-          { '<leader>h_', hidden = true },
+          '<leader>b',
+          group = 'buffer',
+          expand = function()
+            return require('which-key.extras').expand.buf()
+          end,
         },
+        {
+          '<leader>w',
+          group = 'windows',
+          proxy = '<c-w>',
+          expand = function()
+            return require('which-key.extras').expand.win()
+          end,
+        },
+        -- better descriptions
+        { 'gx', desc = 'Open with system app' },
       }
     end,
   },
@@ -345,7 +294,6 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
@@ -651,12 +599,12 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     lazy = false,
     keys = {
       {
-        '<leader>f',
+        '<leader>cF',
         function()
-          require('conform').format { async = true, lsp_fallback = true }
+          require('conform').format { formatters = { 'injected' }, timeout_ms = 3000 }
         end,
-        mode = '',
-        desc = '[F]ormat buffer',
+        mode = { 'n', 'v' },
+        desc = 'Format Injected Langs',
       },
     },
     opts = {
@@ -667,7 +615,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true }
         return {
-          timeout_ms = 500,
+          timeout_ms = 3000,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
@@ -682,6 +630,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       },
     },
   },
+
   {
     'folke/snacks.nvim',
     priority = 1000,
@@ -1008,13 +957,13 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         end,
         desc = 'Quickfix List',
       },
-      {
-        '<leader>sR',
-        function()
-          Snacks.picker.resume()
-        end,
-        desc = 'Resume',
-      },
+      -- {
+      --   '<leader>sR',
+      --   function()
+      --     Snacks.picker.resume()
+      --   end,
+      --   desc = 'Resume',
+      -- },
       {
         '<leader>su',
         function()
@@ -1230,6 +1179,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       })
     end,
   },
+
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -1343,6 +1293,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       }
     end,
   },
+
   {
     'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
@@ -1351,8 +1302,35 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       vim.cmd.hi 'Comment gui=none'
     end,
   },
+
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+    keys = {
+      {
+        ']t',
+        function()
+          require('todo-comments').jump_next()
+        end,
+        desc = 'Next Todo Comment',
+      },
+      {
+        '[t',
+        function()
+          require('todo-comments').jump_prev()
+        end,
+        desc = 'Previous Todo Comment',
+      },
+      { '<leader>xt', '<cmd>Trouble todo toggle<cr>', desc = 'Todo (Trouble)' },
+      { '<leader>xT', '<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
+      { '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
+      { '<leader>sT', '<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme' },
+    },
+  },
+
   {
     'akinsho/toggleterm.nvim',
     config = true,
@@ -1373,7 +1351,27 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
+      local ai = require 'mini.ai'
+      require('mini.ai').setup {
+        n_lines = 500,
+        custom_textobjects = {
+          o = ai.gen_spec.treesitter { -- code block
+            a = { '@block.outer', '@conditional.outer', '@loop.outer' },
+            i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+          },
+          f = ai.gen_spec.treesitter { a = '@function.outer', i = '@function.inner' }, -- function
+          c = ai.gen_spec.treesitter { a = '@class.outer', i = '@class.inner' }, -- class
+          t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
+          d = { '%f[%d]%d+' }, -- digits
+          e = { -- Word with case
+            { '%u[%l%d]+%f[^%l%d]', '%f[%S][%l%d]+%f[^%l%d]', '%f[%P][%l%d]+%f[^%l%d]', '^[%l%d]+%f[^%l%d]' },
+            '^().*()$',
+          },
+          -- g = LazyVim.mini.ai_buffer, -- buffer
+          u = ai.gen_spec.function_call(), -- u for "Usage"
+          U = ai.gen_spec.function_call { name_pattern = '[%w_]' }, -- without dot in function name
+        },
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -1381,6 +1379,18 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+      require('mini.pairs').setup {
+        modes = { insert = true, command = true, terminal = false },
+        -- skip autopair when next character is one of these
+        skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+        -- skip autopair when the cursor is inside these treesitter nodes
+        skip_ts = { 'string' },
+        -- skip autopair when next character is closing pair
+        -- and there are more closing pairs than opening pairs
+        skip_unbalanced = true,
+        -- better deal with markdown code blocks
+        markdown = true,
+      }
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -1417,6 +1427,23 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
   },
   {
     'MagicDuck/grug-far.nvim',
+    keys = {
+      {
+        '<leader>sr',
+        function()
+          local grug = require 'grug-far'
+          local ext = vim.bo.buftype == '' and vim.fn.expand '%:e'
+          grug.open {
+            transient = true,
+            prefills = {
+              filesFilter = ext and ext ~= '' and '*.' .. ext or nil,
+            },
+          }
+        end,
+        mode = { 'n', 'v' },
+        desc = 'Search and Replace',
+      },
+    },
     config = function()
       -- optional setup call to override plugin options
       -- alternatively you can set options with vim.g.grug_far = { ... }
@@ -1425,6 +1452,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         -- there are no required options atm
         -- engine = 'ripgrep' is default, but 'astgrep' or 'astgrep-rules' can
         -- be specified
+        headerMaxWidth = 80,
       }
     end,
   },
@@ -1436,31 +1464,124 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- because nix already ensured they were installed.
       ensure_installed = require('nixCatsUtils').lazyAdd { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
       auto_install = require('nixCatsUtils').lazyAdd(true, false),
-
+      keys = {
+        { '<c-space>', desc = 'Increment Selection' },
+        { '<bs>', desc = 'Decrement Selection', mode = 'x' },
+      },
       highlight = {
         enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<C-space>',
+          node_incremental = '<C-space>',
+          scope_incremental = false,
+          node_decremental = '<bs>',
+        },
+      },
+      textobjects = {
+        move = {
+          enable = true,
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
+          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
+          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
+          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
+        },
+      },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
-      -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
-
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    enabled = require('nixCatsUtils').lazyAdd(true, false),
+    config = function()
+      -- If treesitter is already loaded, we need to run config again for textobjects
+      if LazyVim.is_loaded 'nvim-treesitter' then
+        local opts = LazyVim.opts 'nvim-treesitter'
+        require('nvim-treesitter.configs').setup { textobjects = opts.textobjects }
+      end
+
+      -- When in diff mode, we want to use the default
+      -- vim text objects c & C instead of the treesitter ones.
+      local move = require 'nvim-treesitter.textobjects.move' ---@type table<string,fun(...)>
+      local configs = require 'nvim-treesitter.configs'
+      for name, fn in pairs(move) do
+        if name:find 'goto' == 1 then
+          move[name] = function(q, ...)
+            if vim.wo.diff then
+              local config = configs.get_module('textobjects.move')[name] ---@type table<string,string>
+              for key, query in pairs(config or {}) do
+                if q == query and key:find '[%]%[][cC]' then
+                  vim.cmd('normal! ' .. key)
+                  return
+                end
+              end
+            end
+            return fn(q, ...)
+          end
+        end
+      end
+    end,
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    opts = {},
+  },
+
+  {
+    'folke/trouble.nvim',
+    cmd = { 'Trouble' },
+    opts = {
+      modes = {
+        lsp = {
+          win = { position = 'right' },
+        },
+      },
+    },
+    keys = {
+      { '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
+      { '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
+      { '<leader>cs', '<cmd>Trouble symbols toggle<cr>', desc = 'Symbols (Trouble)' },
+      { '<leader>cS', '<cmd>Trouble lsp toggle<cr>', desc = 'LSP references/definitions/... (Trouble)' },
+      { '<leader>xL', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List (Trouble)' },
+      { '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
+      {
+        '[q',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').prev { skip_groups = true, jump = true }
+          else
+            local ok, err = pcall(vim.cmd.cprev)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = 'Previous Trouble/Quickfix Item',
+      },
+      {
+        ']q',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').next { skip_groups = true, jump = true }
+          else
+            local ok, err = pcall(vim.cmd.cnext)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = 'Next Trouble/Quickfix Item',
+      },
+    },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -1478,7 +1599,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
