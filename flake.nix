@@ -123,10 +123,7 @@
               rust-analyzer
               terraform-ls
               stylua
-              # "${builtins.fetchGit {
-              #   url = "https://github.com/gruntwork-io/terragrunt-ls"
-              #   ref = "main"
-              # }}"
+              bash-language-server
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
               '')
