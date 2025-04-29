@@ -393,7 +393,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       servers.dockerls = {}
       servers.docker_compose_language_service = {}
       servers.rust_analyzer = {}
-      servers.terraform_ls = {}
+      servers.terraformls = {}
       -- servers.tflint = {}
       servers.bashls = {}
       servers.awk_ls = {}
