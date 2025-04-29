@@ -126,7 +126,7 @@
               bash-language-server
               awk-language-server
               helm-ls
-              tflint
+              # tflint
               solc
               yaml-language-server
               # gh-actions-language-server
