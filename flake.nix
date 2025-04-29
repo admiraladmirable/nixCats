@@ -118,7 +118,15 @@
               nix-doc
               lua-language-server
               nixd
+              docker-ls
+              docker-compose-language-service
+              rust-analyzer
+              terraform-ls
               stylua
+              # "${builtins.fetchGit {
+              #   url = "https://github.com/gruntwork-io/terragrunt-ls"
+              #   ref = "main"
+              # }}"
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
               '')
@@ -172,15 +180,9 @@
             kickstart-lint = [
               nvim-lint
             ];
-            kickstart-autopairs = [
-              nvim-autopairs
-            ];
             kickstart-neo-tree = [
               neo-tree-nvim
               nui-nvim
-              # nixCats will filter out duplicate packages
-              # so you can put dependencies with stuff even if they're
-              # also somewhere else
               nvim-web-devicons
               plenary-nvim
             ];
@@ -201,9 +203,6 @@
             ];
           };
 
-          # environmentVariables:
-          # this section is for environmentVariables that should be available
-          # at RUN TIME for plugins. Will be available to path within neovim terminal
           environmentVariables = {
             test = {
               CATTESTVAR = "It worked!";
@@ -269,7 +268,6 @@
               customPlugins = true;
               test = true;
 
-              kickstart-autopairs = true;
               kickstart-neo-tree = true;
               kickstart-debug = true;
               kickstart-lint = true;
