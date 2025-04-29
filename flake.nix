@@ -58,7 +58,7 @@
       # will not apply to module imports
       # as that will have your system values
       extra_pkg_config = {
-        # allowUnfree = true;
+        allowUnfree = true;
       };
       # management of the system variable is one of the harder parts of using flakes.
 
@@ -124,6 +124,12 @@
               terraform-ls
               stylua
               bash-language-server
+              awk-language-server
+              helm-ls
+              tflint
+              solc
+              yaml-language-server
+              # gh-actions-language-server
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
               '')

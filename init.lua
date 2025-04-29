@@ -121,34 +121,34 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
           vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
         end
 
-    -- stylua: ignore start
-    map("n", "]h", function()
-      if vim.wo.diff then
-        vim.cmd.normal({ "]c", bang = true })
-      else
-        gs.nav_hunk("next")
-      end
-    end, "Next Hunk")
-    map("n", "[h", function()
-      if vim.wo.diff then
-        vim.cmd.normal({ "[c", bang = true })
-      else
-        gs.nav_hunk("prev")
-      end
-    end, "Prev Hunk")
-    map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
-    map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
-    map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-    map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-    map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-    map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-    map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-    map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
-    map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-    map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
-    map("n", "<leader>ghd", gs.diffthis, "Diff This")
-    map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
-    map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        -- stylua: ignore start
+        map("n", "]h", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "]c", bang = true })
+          else
+            gs.nav_hunk("next")
+          end
+        end, "Next Hunk")
+        map("n", "[h", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "[c", bang = true })
+          else
+            gs.nav_hunk("prev")
+          end
+        end, "Prev Hunk")
+        map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
+        map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
+        map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+        map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+        map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
+        map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+        map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+        map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+        map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
+        map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
+        map("n", "<leader>ghd", gs.diffthis, "Diff This")
+        map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
       end,
     },
   },
@@ -393,6 +393,14 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       servers.dockerls = {}
       servers.docker_compose_language_service = {}
       servers.rust_analyzer = {}
+      servers.terraform_ls = {}
+      servers.tflint = {}
+      servers.bashls = {}
+      servers.awk_ls = {}
+      servers.helm_ls = {}
+      servers.solc = {}
+      servers.yamlls = {}
+      -- servers.gh_actions_ls = {}
 
       if require('nixCatsUtils').isNixCats then
         servers.nixd = {}
@@ -1067,9 +1075,6 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
           return 'make install_jsregexp'
         end)()),
         dependencies = {
-          -- `friendly-snippets` contains a variety of premade snippets.
-          --    See the README about individual language/framework/plugin snippets:
-          --    https://github.com/rafamadriz/friendly-snippets
           {
             'rafamadriz/friendly-snippets',
             config = function()
@@ -1170,7 +1175,6 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     end,
   },
 
-  -- Highlight todo, notes, etc in comments
   {
     'folke/todo-comments.nvim',
     event = 'VimEnter',
@@ -1205,10 +1209,12 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       open_mapping = [[<c-\>]],
     },
   },
+
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
+
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
