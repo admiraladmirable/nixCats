@@ -60,15 +60,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- -- Fix helm-ls and yamlls
--- vim.api.nvim_create_autocmd('TextYankPost', {
---   desc = 'Highlight when yanking (copying) text',
---   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
---   callback = function()
---     vim.highlight.on_yank()
---   end,
--- })
-
 -- NOTE: nixCats: You might want to move the lazy-lock.json file
 local function getlockfilepath()
   if require('nixCatsUtils').isNixCats and type(nixCats.settings.unwrappedCfgPath) == 'string' then
@@ -1467,6 +1458,8 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       },
     },
   },
+
+  { 'github/copilot.vim' },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and

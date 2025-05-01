@@ -190,6 +190,9 @@
               nvim-web-devicons
               plenary-nvim
             ];
+            ai = [
+              copilot-vim
+            ];
           };
 
           # not loaded automatically at startup.
