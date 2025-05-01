@@ -170,6 +170,7 @@
               mini-nvim
               nvim-treesitter.withAllGrammars
               toggleterm-nvim
+              vim-helm
             ];
             kickstart-debug = [
               nvim-dap
