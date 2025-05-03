@@ -129,6 +129,7 @@
               # tflint
               solc
               yaml-language-server
+              nixfmt-rfc-style
               # gh-actions-language-server
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
