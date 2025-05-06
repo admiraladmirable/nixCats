@@ -400,6 +400,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       servers.helm_ls = {}
       servers.solc = {}
       servers.yamlls = {}
+      servers.cssls = {}
       -- servers.gh_actions_ls = {}
 
       if require('nixCatsUtils').isNixCats then
