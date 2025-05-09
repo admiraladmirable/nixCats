@@ -403,6 +403,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       servers.cssls = {}
       servers.elixirls = {
         cmd = { 'elixir-ls' },
+        filetypes = { 'elixir', 'eelixir', 'heex', 'exs', 'ex', 'eex' },
       }
       -- servers.gh_actions_ls = {}
 
