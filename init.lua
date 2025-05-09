@@ -401,7 +401,9 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       servers.solc = {}
       servers.yamlls = {}
       servers.cssls = {}
-      servers.elixirls = {}
+      servers.elixirls = {
+        cmd = { 'elixir-ls' },
+      }
       -- servers.gh_actions_ls = {}
 
       if require('nixCatsUtils').isNixCats then
@@ -1492,4 +1494,4 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
 }, lazyOptions)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2 etj/
