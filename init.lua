@@ -392,7 +392,11 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- servers.pyright = {},
       servers.dockerls = {}
       servers.docker_compose_language_service = {}
-      servers.rust_analyzer = {}
+      servers.rust_analyzer = {
+        diagnostics = {
+          enable = true,
+        },
+      }
       servers.terraformls = {}
       -- servers.tflint = {}
       servers.bashls = {}
