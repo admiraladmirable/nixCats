@@ -278,6 +278,12 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     end,
   },
 
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^6', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -392,11 +398,11 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- servers.pyright = {},
       servers.dockerls = {}
       servers.docker_compose_language_service = {}
-      servers.rust_analyzer = {
-        diagnostics = {
-          enable = true,
-        },
-      }
+      -- servers.rust_analyzer = {
+      --   diagnostics = {
+      --     enable = true,
+      --   },
+      -- }
       servers.terraformls = {}
       -- servers.tflint = {}
       servers.bashls = {}
