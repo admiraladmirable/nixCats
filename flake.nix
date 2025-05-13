@@ -171,6 +171,12 @@
               catppuccin-nvim
               todo-comments-nvim
               mini-nvim
+              mini-ai
+              mini-comment
+              mini-move
+              mini-pairs
+              mini-surround
+              mini-snippets
               nvim-treesitter.withAllGrammars
               toggleterm-nvim
               vim-helm

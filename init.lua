@@ -1121,8 +1121,13 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- Adds other completion capabilities.
       --  nvim-cmp does not ship with all sources by default. They are split
       --  into multiple repos for maintenance purposes.
+      'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'echasnovski/mini.snippets',
+      'abeldekat/cmp-mini-snippets',
     },
     config = function()
       -- See `:help cmp`
@@ -1134,6 +1139,12 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
+
+            -- Mini snippets
+            local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
+            insert { body = args.body } -- Insert at cursor
+            cmp.resubscribe { 'TextChangedI', 'TextChangedP' }
+            require('cmp.config').set_onetime { sources = {} }
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
@@ -1199,6 +1210,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
           { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'buffer' },
         },
       }
     end,
