@@ -433,7 +433,27 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- servers.gh_actions_ls = {}
 
       if require('nixCatsUtils').isNixCats then
-        servers.nixd = {}
+        servers.nixd = {
+          cmd = { 'nixd' },
+          settings = {
+            nixd = {
+              nixpkgs = {
+                expr = 'import <nixpkgs> { }',
+              },
+              formatting = {
+                command = { 'nixfmt' },
+              },
+              options = {
+                nixos = {
+                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.k-on.options',
+                },
+                home_manager = {
+                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."ruixi@k-on".options',
+                },
+              },
+            },
+          },
+        }
       else
         servers.rnix = {}
         servers.nil_ls = {}
