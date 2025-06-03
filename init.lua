@@ -430,6 +430,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         cmd = { 'elixir-ls' },
         filetypes = { 'elixir', 'eelixir', 'heex', 'exs', 'ex', 'eex' },
       }
+      servers.quick_lint_js = {}
       -- servers.gh_actions_ls = {}
 
       if require('nixCatsUtils').isNixCats then
