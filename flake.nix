@@ -127,6 +127,7 @@
               awk-language-server
               helm-ls
               # tflint
+              luarocks
               solc
               yaml-language-server
               nixfmt-rfc-style
