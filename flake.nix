@@ -118,6 +118,7 @@
               nix-doc
               lua-language-server
               nixd
+              fixjson
               docker-ls
               docker-compose-language-service
               rust-analyzer

@@ -558,6 +558,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       formatters_by_ft = {
         lua = { 'stylua' },
         rust = { 'rustfmt', lsp_format = 'fallback' },
+        json = { 'fixjson' },
         ['_'] = { 'trim_whitespace' },
         hcl = { 'packer_fmt' },
         terraform = { 'terraform_fmt' },
