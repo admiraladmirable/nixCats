@@ -132,6 +132,7 @@
               solc
               yaml-language-server
               nixfmt-rfc-style
+              prettierd
               vscode-langservers-extracted
               beamPackages.elixir-ls
               # gh-actions-language-server
