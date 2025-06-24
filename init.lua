@@ -577,7 +577,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     opts = {
       bigfile = { enabled = true },
       dashboard = { enabled = true },
-      explorer = { enabled = true },
+      explorer = { enabled = true, ignored = true },
       indent = { enabled = true },
       input = { enabled = true },
       image = { enabled = true },
