@@ -1381,6 +1381,18 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+  -- lazy.nvim
+  {
+    'chrisgrieser/nvim-origami',
+    event = 'VeryLazy',
+    opts = {}, -- needed even when using default config
+
+    -- recommended: disable vim's auto-folding
+    init = function()
+      vim.opt.foldlevel = 99
+      vim.opt.foldlevelstart = 99
+    end,
+  },
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
