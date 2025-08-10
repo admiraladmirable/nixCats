@@ -531,7 +531,11 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     end,
   },
 
-  { 'towolf/vim-helm', ft = 'helm' },
+  { 'nvim-neotest/nvim-nio', opt = true },
+  { 'rcarriga/nvim-dap-ui', opt = true },
+  { 'theHamsta/nvim-dap-virtual-text', opt = true },
+  -- { 'jay-babu/mason-nvim-dap.nvim', opt = true },
+  { 'mfussenegger/nvim-dap', opt = true },
 
   { -- Autoformat
     'stevearc/conform.nvim',
@@ -596,7 +600,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       picker = { enabled = true },
       quickfile = { enabled = true },
       scope = { enabled = true },
-      scroll = { enabled = true },
+      -- scroll = { enabled = true },
       statuscolumn = { enabled = true },
       words = { enabled = true },
       styles = {
