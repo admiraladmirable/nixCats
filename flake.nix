@@ -23,6 +23,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
 
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
@@ -46,6 +47,7 @@
       self,
       nixpkgs,
       nixCats,
+      mcphub-nvim,
       ...
     }@inputs:
     let
@@ -135,6 +137,7 @@
               prettierd
               vscode-langservers-extracted
               beamPackages.elixir-ls
+              inputs.mcphub-nvim.packages."${pkgs.system}".default
               # gh-actions-language-server
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
@@ -183,6 +186,7 @@
               nvim-treesitter.withAllGrammars
               toggleterm-nvim
               vim-helm
+              inputs.mcphub-nvim.packages."${pkgs.system}".default
             ];
             kickstart-debug = [
               nvim-dap

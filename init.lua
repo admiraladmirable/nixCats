@@ -337,6 +337,17 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       },
       { 'j-hui/fidget.nvim', opts = {} },
       {
+        'ravitemer/mcphub.nvim',
+        dependencies = {
+          'nvim-lua/plenary.nvim',
+        },
+        -- NOTE: nixCats: No build command needed when using Nix flake
+        -- The mcp-hub binary is provided by the Nix package
+        config = function()
+          require('mcphub').setup()
+        end,
+      },
+      {
         'yetone/avante.nvim',
         -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
         -- ⚠️ must add this setting! ! !
@@ -347,6 +358,16 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         ---@type avante.Config
         opts = {
           -- add any opts here
+          system_prompt = function()
+            local hub = require('mcphub').get_hub_instance()
+            return hub and hub:get_active_servers_prompt() or ''
+          end,
+          -- Using function prevents requiring mcphub before it's loaded
+          custom_tools = function()
+            return {
+              require('mcphub.extensions.avante').mcp_tool(),
+            }
+          end,
           -- for example
           provider = 'claude',
           providers = {
