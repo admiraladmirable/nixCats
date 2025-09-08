@@ -336,17 +336,21 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         end,
       },
       { 'j-hui/fidget.nvim', opts = {} },
-      {
-        'ravitemer/mcphub.nvim',
-        dependencies = {
-          'nvim-lua/plenary.nvim',
-        },
-        -- NOTE: nixCats: No build command needed when using Nix flake
-        -- The mcp-hub binary is provided by the Nix package
-        config = function()
-          require('mcphub').setup()
-        end,
-      },
+      -- {
+      --   'ravitemer/mcphub.nvim',
+      --   dependencies = {
+      --     'nvim-lua/plenary.nvim',
+      --   },
+      --   -- NOTE: nixCats: No build command needed when using Nix flake
+      --   -- The mcp-hub binary is provided by the Nix package
+      --   build = 'bundled_build.lua',
+      --   config = function()
+      --     require('mcphub').setup {
+      --       use_bundled_binary = true,
+      --     }
+      --   end,
+      -- },
+
       {
         'yetone/avante.nvim',
         -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
@@ -358,18 +362,10 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         ---@type avante.Config
         opts = {
           -- add any opts here
-          system_prompt = function()
-            local hub = require('mcphub').get_hub_instance()
-            return hub and hub:get_active_servers_prompt() or ''
-          end,
-          -- Using function prevents requiring mcphub before it's loaded
-          custom_tools = function()
-            return {
-              require('mcphub.extensions.avante').mcp_tool(),
-            }
-          end,
+          -- this file can contain specific instructions for your project
+          instructions_file = 'avante.md',
           -- for example
-          provider = 'claude',
+          provider = 'copilot',
           providers = {
             claude = {
               endpoint = 'https://api.anthropic.com',
@@ -377,7 +373,16 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
               timeout = 30000, -- Timeout in milliseconds
               extra_request_body = {
                 temperature = 0.75,
-                max_tokens = 4096,
+                max_tokens = 20480,
+              },
+            },
+            moonshot = {
+              endpoint = 'https://api.moonshot.ai/v1',
+              model = 'kimi-k2-0711-preview',
+              timeout = 30000, -- Timeout in milliseconds
+              extra_request_body = {
+                temperature = 0.75,
+                max_tokens = 32768,
               },
             },
           },
@@ -393,7 +398,8 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
           'stevearc/dressing.nvim', -- for input provider dressing
           'folke/snacks.nvim', -- for input provider snacks
           'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-          'zbirenbaum/copilot.lua', -- for providers='copilot'
+          -- 'zbirenbaum/copilot.lua', -- for providers='copilot'
+          'github/copilot.vim',
           {
             -- support for image pasting
             'HakonHarnes/img-clip.nvim',
@@ -1654,7 +1660,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     },
   },
 
-  -- { 'github/copilot.vim' },
+  { 'github/copilot.vim' },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and

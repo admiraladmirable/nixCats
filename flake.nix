@@ -1,7 +1,7 @@
 # Copyright (c) 2023 BirdeeHub
 # Licensed under the MIT license
 
-# This is an empty nixCats config.
+# /This is an empty nixCats config.
 # you may import this template directly into your nvim folder
 # and then add plugins to categories here,
 # and call the plugins with their default functions
@@ -23,7 +23,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
-    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
+    plugins-mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
 
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
@@ -47,7 +47,7 @@
       self,
       nixpkgs,
       nixCats,
-      mcphub-nvim,
+      plugins-mcphub-nvim,
       ...
     }@inputs:
     let
@@ -137,7 +137,6 @@
               prettierd
               vscode-langservers-extracted
               beamPackages.elixir-ls
-              inputs.mcphub-nvim.packages."${pkgs.system}".default
               # gh-actions-language-server
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
@@ -186,7 +185,7 @@
               nvim-treesitter.withAllGrammars
               toggleterm-nvim
               vim-helm
-              inputs.mcphub-nvim.packages."${pkgs.system}".default
+              pkgs.neovimPlugins.mcphub-nvim
             ];
             kickstart-debug = [
               nvim-dap
