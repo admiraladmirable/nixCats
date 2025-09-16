@@ -24,6 +24,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     plugins-mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
+    plugins-bacon-ls.url = "github:crisidev/bacon-ls";
 
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
@@ -48,6 +49,7 @@
       nixpkgs,
       nixCats,
       plugins-mcphub-nvim,
+      plugins-bacon-ls,
       ...
     }@inputs:
     let
@@ -137,6 +139,7 @@
               prettierd
               vscode-langservers-extracted
               beamPackages.elixir-ls
+              bacon
               # gh-actions-language-server
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
@@ -186,12 +189,15 @@
               toggleterm-nvim
               vim-helm
               pkgs.neovimPlugins.mcphub-nvim
+              pkgs.neovimPlugins.bacon-ls
             ];
             kickstart-debug = [
               nvim-dap
               nvim-dap-ui
               nvim-dap-go
+              nvim-dap-lldb
               nvim-nio
+              nvim-bacon
             ];
             kickstart-indent_line = [
               indent-blankline-nvim

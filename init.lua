@@ -286,7 +286,6 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     opts = {},
   },
-
   {
     'mrcjkb/rustaceanvim',
     version = '^6', -- Recommended
@@ -513,6 +512,9 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- servers.pyright = {},
       servers.dockerls = {}
       servers.docker_compose_language_service = {}
+      servers.bacon_ls = {
+        cmd = { 'bacon' },
+      }
       -- servers.rust_analyzer = {
       --   diagnostics = {
       --     enable = true,
@@ -630,6 +632,23 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
   { 'theHamsta/nvim-dap-virtual-text', opt = true },
   -- { 'jay-babu/mason-nvim-dap.nvim', opt = true },
   { 'mfussenegger/nvim-dap', opt = true },
+  {
+    'Saecki/crates.nvim',
+    event = { 'BufRead Cargo.toml' },
+    opts = {
+      completion = {
+        crates = {
+          enabled = true,
+        },
+      },
+      lsp = {
+        enabled = true,
+        actions = true,
+        completion = true,
+        hover = true,
+      },
+    },
+  },
 
   { -- Autoformat
     'stevearc/conform.nvim',
