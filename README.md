@@ -1,56 +1,43 @@
-# This is the help for the nixCats lazy wrapper
+# Example `nixCats` Configuration
 
-Or well, most of the help for it. There is also help for it at [:h nixCats.luaUtils](https://nixcats.org/nixCats_luaUtils.html)
+This directory contains an example of the suggested, idiomatic way to manage a neovim configuration using `nixCats`. It leverages [`lze`](https://github.com/BirdeeHub/lze) for lazy loading, although [`lz.n`](https://github.com/nvim-neorocks/lz.n) can be used instead to similar effect. It also includes a fallback mechanism using `paq` and `mason`, allowing you to load the directory without `nix` if needed.
 
-It is the entirety of [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) with very few changes, but uses nixCats to download everything
+This setup serves as a strong starting point for a `Neovim` configuration—think of it as `kickstart.nvim`, but using `nixCats` **instead of** `lazy.nvim` and `mason`, rather than in addition to them. It also follows a modular approach, spreading the configuration across multiple files rather than consolidating everything into one.
 
-enter a new directory then run:
+While this is not a "perfect" configuration, nor does it claim to be, it is **a well-structured, recommended way to use `nixCats`**. You are encouraged to customize it to fit your needs. `nixCats` itself is just the `nix`-based package manager, along with its associated [Lua plugin](https://nixcats.org/nixCats_plugin.html).
 
-`nix flake init -t github:BirdeeHub/nixCats-nvim#kickstart-nvim`
+## Why Use This Approach?
 
-then to build, `nix build .`
+Using `nixCats` in this way provides a **simpler, more transparent** experience compared to solutions like `lazy.nvim`, which hijack normal plugin loading.
 
-and the result will be found at `./result/bin/nvim`
+It leverages the normal packpath methods of loading plugins both at startup and lazily, allowing you to know what is going on behind the scenes.
 
-It also can work without any nix whatsoever.
-It has been adapted such that it works either way!
+It avoids duplicating functionality between nix and other nvim based download managers, avoiding compatibility issues.
 
-All notes about the lazy wrapper are in comments that begin with the string: `NOTE: nixCats:` so to find all of the info, search for that.
+You can still have a config that works without nix using this method if desired without undue difficulty.
 
-One other note.
+## Directory Structure
 
-If you install your grammars via `lazy.nvim` rather than `nix`, you will need to add a c compiler to your `lspsAndRuntimeDeps` section in your `categoryDefinitions`
+This configuration primarily uses the following directory structure:
 
-If you install your grammars via nix, the only methods supported via the `lazy.nvim` wrapper are the following.
+- The `lua/` directory for core configurations.
+- The `after/plugin/` directory to demonstrate compatibility.
 
-Summary: as long as `pkgs.neovimUtils.grammarToPlugin` is called on it somehow, it will work.
+While this structure works well, you are encouraged to further modularize your setup by utilizing any of the runtime directories checked by Neovim:
 
-Any other ways will still work in nixCats, but not when using the lazy wrapper, because the lazy wrapper has to add them back to the runtimepath.
+- `ftplugin/` for file-type-specific configurations.
+- `plugin/` for global plugin configurations.
+- Even `pack/*/{start,opt}/` work if you want to make a plugin inside your configuration.
+- And so on...
 
-```nix
-pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-# or
-pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-  nix
-  lua
-  # etc...
-]);
-# or
-pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.vimPlugins.nvim-treesitter.allGrammars)
-# or
-builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins
-# or
-pkgs.neovimUtils.grammarToPlugin pkgs.tree-sitter-grammars.somegrammar
-```
+If you are unfamiliar with the above, refer to the [Neovim runtime path documentation](https://neovim.io/doc/user/options.html#'rtp').
 
-### Disclaimer:
+---
 
-`lazy.nvim` technically works fine on with nix, HOWEVER it will block any other plugin manager, including nix, from installing anything on its own without also making a lazy.nvim plugin spec and making sure the names match.
-
-This is the reason for the lazy.nvim wrapper provided by the luaUtils optional template.
-
-It simply tells lazy about the location of things from nix, and sets a few compatibility options before calling the normal lazy setup function.
-
-If you wish to download something from nix, the name lazy.nvim knows about and the name nix gave it must match. Otherwise, lazy.nvim will download it anyway.
-
-For how to address that, see the main init.lua of this template. and search for `NOTE: nixCats:`
+> "Idiomatic" here means:
+>
+> - This configuration does **not** use `lazy.nvim`, and does not use `mason.nvim` when nix is involved.
+> - `nixCats` is responsible for downloading all plugins.
+> - Plugins are only loaded if their respective category is enabled.
+> - The [Lua utilities template](https://github.com/BirdeeHub/nixCats-nvim/tree/main/templates/luaUtils/lua/nixCatsUtils) is used (see [`:h nixCats.luaUtils`](https://nixcats.org/nixCats_luaUtils.html)).
+> - [`lze`](https://github.com/BirdeeHub/lze) or [`lz.n`](https://github.com/nvim-neorocks/lz.n) is used for lazy loading.
