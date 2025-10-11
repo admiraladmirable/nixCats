@@ -24,7 +24,7 @@ require('lze').load {
         tf = { 'terraform_validate' },
 
         bash = {'bash'},
-        lua = { 'stylua' },
+        lua = { 'luacheck' },
         rust = { 'rustfmt', lsp_format = 'fallback' },
         json = { 'fixjson' },
         jsonc = { 'prettierd', 'prettier', stop_after_first = true },

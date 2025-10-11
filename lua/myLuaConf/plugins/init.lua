@@ -749,19 +749,19 @@ require("lze").load({
     -- keys = "",
     keys = {
       {
-        '<leader>sr',
+        "<leader>sr",
         function()
-          local grug = require 'grug-far'
-          local ext = vim.bo.buftype == '' and vim.fn.expand '%:e'
-          grug.open {
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.open({
             transient = true,
             prefills = {
-              filesFilter = ext and ext ~= '' and '*.' .. ext or nil,
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
             },
-          }
+          })
         end,
-        mode = { 'n', 'v' },
-        desc = 'Search and Replace',
+        mode = { "n", "v" },
+        desc = "Search and Replace",
       },
     },
 
@@ -769,6 +769,7 @@ require("lze").load({
     --         require('grug-far').setup();
     -- end,
   },
+
   -- {
   --   "hlargs",
   --   for_cat = 'general.extra',
@@ -839,11 +840,19 @@ require("lze").load({
       require("gitsigns").setup({
         -- See `:help gitsigns.txt`
         signs = {
-          add = { text = "+" },
-          change = { text = "~" },
-          delete = { text = "_" },
-          topdelete = { text = "‾" },
-          changedelete = { text = "~" },
+          add = { text = "▎" },
+          change = { text = "▎" },
+          delete = { text = "" },
+          topdelete = { text = "" },
+          changedelete = { text = "▎" },
+          untracked = { text = "▎" },
+        },
+        signs_staged = {
+          add = { text = "▎" },
+          change = { text = "▎" },
+          delete = { text = "" },
+          topdelete = { text = "" },
+          changedelete = { text = "▎" },
         },
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
@@ -899,19 +908,66 @@ require("lze").load({
           end, { desc = "git diff against last commit" })
 
           -- Toggles
-          map("n", "<leader>gtb", gs.toggle_current_line_blame,
-            { desc = "toggle git blame line" })
+          map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "toggle git blame line" })
           map("n", "<leader>gtd", gs.toggle_deleted, { desc = "toggle git show deleted" })
 
           -- Text object
-          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>",
-            { desc = "select git hunk" })
+          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
         end,
       })
       vim.cmd([[hi GitSignsAdd guifg=#04de21]])
       vim.cmd([[hi GitSignsChange guifg=#83fce6]])
       vim.cmd([[hi GitSignsDelete guifg=#fa2525]])
     end,
+  },
+  {
+    "which-key.nvim",
+    for_cat = "general.extra",
+    -- cmd = { "" },
+    event = "DeferredUIEnter",
+    -- ft = "",
+    -- keys = "",
+    -- colorscheme = "",
+    after = function(plugin)
+      require("which-key").setup({})
+      require("which-key").add({
+        { "<leader><leader>",  group = "buffer commands" },
+        { "<leader><leader>_", hidden = true },
+        { "<leader>c",         group = "[c]ode" },
+        { "<leader>c_",        hidden = true },
+        { "<leader>d",         group = "[d]ocument" },
+        { "<leader>d_",        hidden = true },
+        { "<leader>g",         group = "[g]it" },
+        { "<leader>g_",        hidden = true },
+        { "<leader>m",         group = "[m]arkdown" },
+        { "<leader>m_",        hidden = true },
+        { "<leader>r",         group = "[r]ename" },
+        { "<leader>r_",        hidden = true },
+        { "<leader>s",         group = "[s]earch" },
+        { "<leader>s_",        hidden = true },
+        { "<leader>t",         group = "[t]oggles" },
+        { "<leader>t_",        hidden = true },
+        { "<leader>w",         group = "[w]orkspace" },
+        { "<leader>w_",        hidden = true },
+      })
+    end,
+  },
+  {
+    "Saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    opts = {
+      completion = {
+        crates = {
+          enabled = true,
+        },
+      },
+      lsp = {
+        enabled = true,
+        actions = true,
+        completion = true,
+        hover = true,
+      },
+    },
   },
   {
     "which-key.nvim",
