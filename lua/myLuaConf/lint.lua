@@ -33,7 +33,7 @@ require('lze').load {
         scss = { 'prettierd', 'prettier', stop_after_first = true },
         less = { 'prettierd', 'prettier', stop_after_first = true },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
-        nix = { 'nixfmt-rfc-style' },
+        nix = { 'nix' },
       }
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {

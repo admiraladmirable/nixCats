@@ -114,6 +114,9 @@
               hadolint
               stylua
               lua54Packages.luacheck
+              yamllint
+              helm
+              nixfmt-rfc-style
             ];
             # but you can choose which ones you want
             # per nvim package you export

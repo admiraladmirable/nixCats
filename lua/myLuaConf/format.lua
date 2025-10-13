@@ -30,7 +30,7 @@ require("lze").load({
           hcl = { "packer_fmt" },
           terraform = { "terraform_fmt" },
           ["terraform-vars"] = { "terraform_fmt" },
-          nix = { "nixfmt-rfc-style" },
+          nix = { "nixfmt" },
           ["_"] = { "trim_whitespace" },
           ["*"] = { "codespell" },
         },
