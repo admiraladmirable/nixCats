@@ -13,15 +13,16 @@ require('lze').load {
         -- and configure them here
         -- General
         markdown = {'markdownlint-cli2',},
-        actionlint = {'actionlint'},
-        checkmate = {'checkmate'},
-        commitlint = {'commitlint'},
+        ghaction = {'actionlint'},
+        make = {'checkmake'},
+        gitcommit = {'commitlint'},
 
         -- DevOps
         dockerfile = {'hadolint'},
         hcl = { 'packer_fmt' },
         terraform = { 'terraform_validate' },
         tf = { 'terraform_validate' },
+        yaml = { 'yamllint' },
 
         bash = {'bash'},
         lua = { 'luacheck' },
@@ -33,7 +34,6 @@ require('lze').load {
         less = { 'prettierd', 'prettier', stop_after_first = true },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         nix = { 'nixfmt-rfc-style' },
-        ['_'] = { 'trim_whitespace' },
       }
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {

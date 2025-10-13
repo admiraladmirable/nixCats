@@ -113,6 +113,7 @@
               commitlint
               hadolint
               stylua
+              lua54Packages.luacheck
             ];
             # but you can choose which ones you want
             # per nvim package you export

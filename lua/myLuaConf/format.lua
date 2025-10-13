@@ -13,6 +13,11 @@ require("lze").load({
       local conform = require("conform")
 
       conform.setup({
+        format_on_save = {
+          -- These options will be passed to conform.format()
+          timeout_ms = 500,
+          lsp_format = "fallback",
+        },
         formatters_by_ft = {
           lua = { "stylua" },
           rust = { "rustfmt", lsp_format = "fallback" },
@@ -22,11 +27,12 @@ require("lze").load({
           scss = { "prettierd", "prettier", stop_after_first = true },
           less = { "prettierd", "prettier", stop_after_first = true },
           javascript = { "prettierd", "prettier", stop_after_first = true },
-          ["_"] = { "trim_whitespace" },
           hcl = { "packer_fmt" },
           terraform = { "terraform_fmt" },
           ["terraform-vars"] = { "terraform_fmt" },
           nix = { "nixfmt-rfc-style" },
+          ["_"] = { "trim_whitespace" },
+          ["*"] = { "codespell" },
         },
       })
 
