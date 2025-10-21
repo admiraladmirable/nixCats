@@ -67,6 +67,7 @@ require('lze').load {
   { import = 'myLuaConf.plugins.telescope' },
   { import = 'myLuaConf.plugins.treesitter' },
   { import = 'myLuaConf.plugins.completion' },
+  { import = 'myLuaConf.plugins.rust' },
   {
     'markdown-preview.nvim',
     -- NOTE: for_cat is a custom handler that just sets enabled value for us,
@@ -1079,26 +1080,5 @@ require('lze').load {
         desc = 'Quickfix List (Trouble)',
       },
     },
-  },
-  {
-    'rustaceanvim',
-    for_cat = 'rust',
-    version = '^6', -- Recommended
-    after = function(plugin)
-      require('rustaceanvim').setup {}
-      local bufnr = vim.api.nvim_get_current_buf()
-      vim.keymap.set('n', '<leader>ca', function()
-        vim.cmd.RustLsp 'codeAction' -- supports rust-analyzer's grouping
-        -- or vim.lsp.buf.codeAction() if you don't want grouping.
-      end, { silent = true, buffer = bufnr })
-      vim.keymap.set(
-        'n',
-        'K', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-        function()
-          vim.cmd.RustLsp { 'hover', 'actions' }
-        end,
-        { silent = true, buffer = bufnr }
-      )
-    end,
   },
 }

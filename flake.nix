@@ -169,6 +169,7 @@
                 mini-align
                 todo-comments-nvim
                 grug-far-nvim
+                rustaceanvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
               extra = [
@@ -214,7 +215,6 @@
                 nvim-nio
                 nvim-dap-lldb
                 nvim-bacon
-                rustaceanvim
               ];
             };
             lint = with pkgs.vimPlugins; [
