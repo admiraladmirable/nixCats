@@ -102,6 +102,7 @@
               universal-ctags
               ripgrep
               fd
+              fixjson
               (pkgs.writeShellScriptBin "lazygit" ''
                 exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
               '')
@@ -117,6 +118,7 @@
               yamllint
               helm
               nixfmt-rfc-style
+              nodePackages.jsonlint
             ];
             # but you can choose which ones you want
             # per nvim package you export
