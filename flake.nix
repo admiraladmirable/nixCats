@@ -165,6 +165,7 @@
                 mini-pairs
                 mini-ai
                 mini-align
+                todo-comments-nvim
                 grug-far-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
