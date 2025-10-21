@@ -694,7 +694,34 @@ require('lze').load {
     },
   },
   {
-    'folke/flash.nvim',
+    'mini.align',
+    for_cat = 'general.extra',
+    event = 'DeferredUIEnter',
+    -- keys = "",
+    after = function(plugin)
+      require('mini.align').setup()
+    end,
+  },
+  {
+    'mini.ai',
+    for_cat = 'general.extra',
+    event = 'DeferredUIEnter',
+    -- keys = "",
+    after = function(plugin)
+      require('mini.ai').setup()
+    end,
+  },
+  {
+    'mini.pairs',
+    for_cat = 'general.extra',
+    event = 'DeferredUIEnter',
+    -- keys = "",
+    after = function(plugin)
+      require('mini.pairs').setup()
+    end,
+  },
+  {
+    'flash.nvim',
     for_cat = 'general.extra',
     event = 'DeferredUIEnter',
     -- keys = "",

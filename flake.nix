@@ -162,6 +162,9 @@
                 vim-repeat
                 plenary-nvim
                 snacks-nvim
+                mini-pairs
+                mini-ai
+                mini-align
                 grug-far-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
