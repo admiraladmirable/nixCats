@@ -214,6 +214,7 @@
                 nvim-nio
                 nvim-dap-lldb
                 nvim-bacon
+                rustaceanvim
               ];
             };
             lint = with pkgs.vimPlugins; [
