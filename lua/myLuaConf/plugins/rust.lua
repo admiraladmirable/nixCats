@@ -7,7 +7,7 @@ return {
     for_cat = { cat = 'general', default = true },
     ft = { 'rust' },
     after = function()
-      require('rustaceanvim').setup {
+      vim.g.rustaceanvim = vim.tbl_deep_extend('force', vim.g.rustaceanvim or {}, {
         tools = {
           hover_actions = { auto_focus = true },
         },
@@ -42,7 +42,7 @@ return {
             },
           },
         },
-      }
+      })
     end,
   },
 }
