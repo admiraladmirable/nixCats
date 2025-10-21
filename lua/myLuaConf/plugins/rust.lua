@@ -6,6 +6,29 @@ return {
     version = '^6',
     for_cat = { cat = 'general', default = true },
     ft = { 'rust' },
+    keys = {
+      {
+        '<leader>ca',
+        function()
+          vim.cmd.RustLsp 'codeAction'
+        end,
+        desc = 'Rust code action',
+      },
+      {
+        '<leader>rr',
+        function()
+          vim.cmd.RustLsp 'runables'
+        end,
+        desc = 'Rust runnables',
+      },
+      {
+        'K',
+        function()
+          vim.cmd.RustLsp { 'hover', 'actions' }
+        end,
+        desc = 'Rust Hover Actions',
+      },
+    },
     after = function()
       vim.g.rustaceanvim = vim.tbl_deep_extend('force', vim.g.rustaceanvim or {}, {
         tools = {
@@ -14,22 +37,6 @@ return {
         server = {
           on_attach = function(client, bufnr)
             on_attach(client, bufnr)
-
-            local function nmap(lhs, rhs, desc)
-              vim.keymap.set('n', lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
-            end
-
-            nmap('<leader>ca', function()
-              vim.cmd.RustLsp 'codeAction'
-            end, 'Rust Code Action')
-
-            nmap('<leader>rr', function()
-              vim.cmd.RustLsp 'runnables'
-            end, 'Rust Runnables')
-
-            nmap('K', function()
-              vim.cmd.RustLsp { 'hover', 'actions' }
-            end, 'Rust Hover Actions')
           end,
           default_settings = {
             ['rust-analyzer'] = {
