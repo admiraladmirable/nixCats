@@ -3,7 +3,7 @@ require("lze").load({
     "conform.nvim",
     for_cat = "format",
     -- cmd = { "" },
-    -- event = "",
+    event = { "BufReadPost", "BufNewFile" },
     -- ft = "",
     keys = {
       { "<leader>FF", desc = "[F]ormat [F]ile" },

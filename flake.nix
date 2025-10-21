@@ -7,7 +7,7 @@
 
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
-    # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
+    # i.e. if it wasn't on nixpkgs, but doesnt have an extra build step.
     # Then you should name it "plugins-something"
     # If you wish to define a custom build step not handled by nixpkgs,
     # then you should name it in a different format, and deal with that in the
@@ -123,6 +123,9 @@
             debug = with pkgs; {
               go = [ delve ];
             };
+            devops = with pkgs; [
+              action-validator
+            ];
             go = with pkgs; [
               gopls
               gotools
@@ -131,6 +134,12 @@
             ];
             # and easily check if they are included in lua
             format = with pkgs; [
+              stylua
+              shfmt
+              rust-analyzer
+              go
+              ruff
+              codespell
             ];
             neonixdev = {
               # also you can do this.
@@ -146,7 +155,7 @@
             ];
             general = with pkgs.vimPlugins; {
               # you can make subcategories!!!
-              # (always isnt a special name, just the one I chose for this subcategory)
+              # (always isn't a special name, just the one I chose for this subcategory)
               always = [
                 lze
                 lzextras
@@ -161,7 +170,7 @@
                 nvim-web-devicons
               ];
             };
-            # You can retreive information from the
+            # You can retrieve information from the
             # packageDefinitions of the package this was packaged with.
             # :help nixCats.flake.outputs.categoryDefinitions.scheme
             themer =
@@ -256,6 +265,7 @@
                 indent-blankline-nvim
                 vim-startuptime
                 snacks-nvim
+                trouble-nvim
                 # If it was included in your flake inputs as plugins-hlargs,
                 # this would be how to add that plugin in your config.
                 # pkgs.neovimPlugins.hlargs
@@ -358,7 +368,7 @@
         nixCats =
           { pkgs, name, ... }@misc:
           {
-            # these also recieve our pkgs variable
+            # these also receive our pkgs variable
             # see :help nixCats.flake.outputs.packageDefinitions
             settings = {
               suffix-path = true;
@@ -495,11 +505,11 @@
       #   packageNames = [ "nixCats" ]; # <- the packages you want installed
       #   <see :h nixCats.module for options>
       # }
-      # In addition, every package exports its own module via passthru, and is overrideable.
+      # In addition, every package exports its own module via passthru, and is overridable.
       # so you can yourpackage.homeModule and then the namespace would be that packages name.
     in
-    # you shouldnt need to change much past here, but you can if you wish.
-    # but you should at least eventually try to figure out whats going on here!
+    # you shouldn't need to change much past here, but you can if you wish.
+    # but you should at least eventually try to figure out what's going on here!
     # see :help nixCats.flake.outputs.exports
     forEachSystem (
       system:

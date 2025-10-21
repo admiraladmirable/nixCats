@@ -5,48 +5,48 @@ end
 
 return {
   {
-    "cmp-cmdline",
-    for_cat = "general.blink",
-    on_plugin = { "blink.cmp" },
+    'cmp-cmdline',
+    for_cat = 'general.blink',
+    on_plugin = { 'blink.cmp' },
     load = load_w_after,
   },
   {
-    "blink.compat",
-    for_cat = "general.blink",
-    dep_of = { "cmp-cmdline" },
+    'blink.compat',
+    for_cat = 'general.blink',
+    dep_of = { 'cmp-cmdline' },
   },
   {
-    "luasnip",
-    for_cat = "general.blink",
-    dep_of = { "blink.cmp" },
-    after = function (_)
+    'luasnip',
+    for_cat = 'general.blink',
+    dep_of = { 'blink.cmp' },
+    after = function(_)
       local luasnip = require 'luasnip'
       require('luasnip.loaders.from_vscode').lazy_load()
       luasnip.config.setup {}
 
-      local ls = require('luasnip')
+      local ls = require 'luasnip'
 
-      vim.keymap.set({ "i", "s" }, "<M-n>", function()
-          if ls.choice_active() then
-              ls.change_choice(1)
-          end
+      vim.keymap.set({ 'i', 's' }, '<M-n>', function()
+        if ls.choice_active() then
+          ls.change_choice(1)
+        end
       end)
     end,
   },
   {
-    "colorful-menu.nvim",
-    for_cat = "general.blink",
-    on_plugin = { "blink.cmp" },
+    'colorful-menu.nvim',
+    for_cat = 'general.blink',
+    on_plugin = { 'blink.cmp' },
   },
   {
-    "blink.cmp",
-    for_cat = "general.blink",
-    event = "DeferredUIEnter",
-    after = function (_)
-      require("blink.cmp").setup({
+    'blink.cmp',
+    for_cat = 'general.blink',
+    event = 'DeferredUIEnter',
+    after = function(_)
+      require('blink.cmp').setup {
         -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
         -- See :h blink-cmp-config-keymap for configuring keymaps
-        keymap =  {
+        keymap = {
           preset = 'default',
         },
         cmdline = {
@@ -59,9 +59,13 @@ return {
           sources = function()
             local type = vim.fn.getcmdtype()
             -- Search forward and backward
-            if type == '/' or type == '?' then return { 'buffer' } end
+            if type == '/' or type == '?' then
+              return { 'buffer' }
+            end
             -- Commands
-            if type == ':' or type == '@' then return { 'cmdline', 'cmp_cmdline' } end
+            if type == ':' or type == '@' then
+              return { 'cmdline', 'cmp_cmdline' }
+            end
             return {}
           end,
         },
@@ -86,10 +90,10 @@ return {
               components = {
                 label = {
                   text = function(ctx)
-                    return require("colorful-menu").blink_components_text(ctx)
+                    return require('colorful-menu').blink_components_text(ctx)
                   end,
                   highlight = function(ctx)
-                    return require("colorful-menu").blink_components_highlight(ctx)
+                    return require('colorful-menu').blink_components_highlight(ctx)
                   end,
                 },
               },
@@ -102,12 +106,14 @@ return {
         snippets = {
           preset = 'luasnip',
           active = function(filter)
-            local snippet = require "luasnip"
-            local blink = require "blink.cmp"
+            local snippet = require 'luasnip'
+            local blink = require 'blink.cmp'
             if snippet.in_snippet() and not blink.is_visible() then
               return true
             else
-              if not snippet.in_snippet() and vim.fn.mode() == "n" then snippet.unlink_current() end
+              if not snippet.in_snippet() and vim.fn.mode() == 'n' then
+                snippet.unlink_current()
+              end
               return false
             end
           end,
@@ -134,7 +140,7 @@ return {
             },
           },
         },
-      })
+      }
     end,
   },
 }
