@@ -127,6 +127,18 @@
             };
             devops = with pkgs; [
               action-validator
+              bash-language-server
+              docker-language-server
+              docker-compose-language-service
+              helm-ls
+              terraform-ls
+              tofu-ls
+              yaml-language-server
+            ];
+            typescript = with pkgs; [
+              action-validator
+              quick-lint-js
+              typescript-language-server
             ];
             go = with pkgs; [
               gopls

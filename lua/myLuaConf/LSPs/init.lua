@@ -110,6 +110,13 @@ require('lze').load {
     },
   },
   {
+    'ts_ls',
+    for_cat = 'typescript',
+    lsp = {
+      filetypes = { 'ts' },
+    },
+  },
+  {
     'nil_ls',
     -- mason doesn't have nixd
     enabled = not catUtils.isNixCats,
