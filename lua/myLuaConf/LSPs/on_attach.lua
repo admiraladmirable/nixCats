@@ -11,7 +11,18 @@ return function(_, bufnr)
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>ca', function()
+    local ft = vim.bo[bufnr].filetype
+    if ft == 'rust' and vim.fn.exists(':RustLsp') == 2 then
+      local ok = pcall(function()
+        vim.cmd.RustLsp 'codeAction'
+      end)
+      if ok then
+        return
+      end
+    end
+    vim.lsp.buf.code_action()
+  end, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
