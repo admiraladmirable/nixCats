@@ -429,7 +429,7 @@
 
               # this does not have an associated category of plugins,
               # but lua can still check for it
-              lspDebugMode = false;
+              lspDebugMode = true;
               # you could also pass something else:
               # see :help nixCats
               themer = true;
