@@ -1,4 +1,38 @@
 local catUtils = require 'nixCatsUtils'
+local on_attach = require 'myLuaConf.LSPs.on_attach'
+
+-- Ensure buffers get our LSP defaults even when servers bypass lspconfig.
+local lsp_attach_group = vim.api.nvim_create_augroup('myLuaConfLspAttach', { clear = true })
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = lsp_attach_group,
+  callback = function(event)
+    local client = event.data and event.data.client_id and vim.lsp.get_client_by_id(event.data.client_id) or nil
+    if not client then
+      return
+    end
+
+    local buf = event.buf
+
+    local ok = pcall(vim.api.nvim_buf_get_var, buf, 'myLuaConf_lsp_attached')
+    if not ok then
+      on_attach(client, buf)
+      vim.api.nvim_buf_set_var(buf, 'myLuaConf_lsp_attached', true)
+    end
+
+    if client.name == 'rust_analyzer' then
+      local rust_ok = pcall(vim.api.nvim_buf_get_var, buf, 'myLuaConf_rust_keymaps')
+      if not rust_ok then
+        vim.keymap.set('n', '<leader>rr', function()
+          vim.cmd.RustLsp 'runnables'
+        end, { buffer = buf, desc = 'Rust: Runnables' })
+        vim.keymap.set('n', '<leader>rh', function()
+          vim.cmd.RustLsp { 'hover', 'actions' }
+        end, { buffer = buf, desc = 'Rust: Hover Actions' })
+        vim.api.nvim_buf_set_var(buf, 'myLuaConf_rust_keymaps', true)
+      end
+    end
+  end,
+})
 if catUtils.isNixCats and nixCats 'lspDebugMode' then
   vim.lsp.set_log_level 'debug'
 end

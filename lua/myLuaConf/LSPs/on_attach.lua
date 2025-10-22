@@ -1,4 +1,11 @@
 return function(_, bufnr)
+  local already_attached = pcall(vim.api.nvim_buf_get_var, bufnr, 'myLuaConf_lsp_attached')
+  if already_attached then
+    return
+  end
+
+  vim.api.nvim_buf_set_var(bufnr, 'myLuaConf_lsp_attached', true)
+
   -- we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
 
