@@ -135,9 +135,10 @@
               tofu-ls
               yaml-language-server
             ];
-            typescript = with pkgs; [
-              action-validator
+            typescript = with pkgs.nodePackages; [
               typescript-language-server
+              eslint
+              prettier
             ];
             go = with pkgs; [
               gopls
