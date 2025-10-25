@@ -675,6 +675,14 @@ require('lze').load {
         mode = { 'n', 't' },
       },
       {
+        '<leader>uh',
+        function()
+          Snacks.toggle.inlay_hints()
+        end,
+        desc = 'Toggle Inlay Hints',
+        mode = { 'u', 'h' },
+      },
+      {
         '<leader>N',
         desc = 'Neovim News',
         function()
