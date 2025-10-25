@@ -680,7 +680,7 @@ require('lze').load {
           Snacks.toggle.inlay_hints()
         end,
         desc = 'Toggle Inlay Hints',
-        mode = { 'u', 'h' },
+        -- mode = { 'u', 'h' },
       },
       {
         '<leader>N',
