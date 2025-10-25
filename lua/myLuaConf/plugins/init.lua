@@ -1090,7 +1090,7 @@ require('lze').load {
     },
   },
   {
-    'trouble.nvim',
+    'lsp-inlayhints.nvim',
     for_cat = 'general.extra',
     event = 'DeferredUIEnter',
     after = function(_)
