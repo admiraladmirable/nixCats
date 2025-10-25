@@ -182,6 +182,7 @@
                 todo-comments-nvim
                 grug-far-nvim
                 rustaceanvim
+                lsp-inlayhints-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
               extra = [

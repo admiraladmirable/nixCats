@@ -1089,4 +1089,12 @@ require('lze').load {
       },
     },
   },
+  {
+    'trouble.nvim',
+    for_cat = 'general.extra',
+    event = 'DeferredUIEnter',
+    after = function(_)
+      require('inlay-hints').setup {}
+    end,
+  },
 }
