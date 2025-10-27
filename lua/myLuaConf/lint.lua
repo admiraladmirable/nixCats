@@ -19,7 +19,7 @@ require('lze').load {
 
         -- DevOps
         dockerfile = { 'hadolint' },
-        hcl = { 'packer_fmt' },
+        -- hcl = { 'packer_fmt' },
         terraform = { 'terraform_validate' },
         tf = { 'terraform_validate' },
         yaml = { 'yamllint' },
