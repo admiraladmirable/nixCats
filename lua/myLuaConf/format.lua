@@ -1,48 +1,49 @@
-require("lze").load({
+require('lze').load {
   {
-    "conform.nvim",
-    for_cat = "format",
+    'conform.nvim',
+    for_cat = 'format',
     -- cmd = { "" },
-    event = { "BufReadPost", "BufNewFile" },
+    event = { 'BufReadPost', 'BufNewFile' },
     -- ft = "",
     keys = {
-      { "<leader>FF", desc = "[F]ormat [F]ile" },
+      { '<leader>FF', desc = '[F]ormat [F]ile' },
     },
     -- colorscheme = "",
     after = function(plugin)
-      local conform = require("conform")
+      local conform = require 'conform'
 
-      conform.setup({
+      conform.setup {
         format_on_save = {
           -- These options will be passed to conform.format()
           timeout_ms = 500,
-          lsp_format = "fallback",
+          lsp_format = 'fallback',
         },
         formatters_by_ft = {
-          lua = { "stylua" },
-          rust = { "rustfmt", lsp_format = "fallback" },
-          json = { "fixjson" },
-          jsonc = { "prettierd", "prettier", stop_after_first = true },
-          css = { "prettierd", "prettier", stop_after_first = true },
-          scss = { "prettierd", "prettier", stop_after_first = true },
-          less = { "prettierd", "prettier", stop_after_first = true },
-          javascript = { "prettierd", "prettier", stop_after_first = true },
-          hcl = { "packer_fmt" },
-          terraform = { "terraform_fmt" },
-          ["terraform-vars"] = { "terraform_fmt" },
-          nix = { "nixfmt" },
-          ["_"] = { "trim_whitespace" },
-          ["*"] = { "codespell" },
+          lua = { 'stylua' },
+          rust = { 'rustfmt', lsp_format = 'fallback' },
+          json = { 'fixjson' },
+          jsonc = { 'prettierd', 'prettier', stop_after_first = true },
+          css = { 'prettierd', 'prettier', stop_after_first = true },
+          scss = { 'prettierd', 'prettier', stop_after_first = true },
+          less = { 'prettierd', 'prettier', stop_after_first = true },
+          javascript = { 'prettierd', 'prettier', stop_after_first = true },
+          hcl = { 'packer_fmt' },
+          terraform = { 'terraform_fmt' },
+          ['terraform-vars'] = { 'terraform_fmt' },
+          nix = { 'nixfmt' },
+          go = { 'gofumt' },
+          ['_'] = { 'trim_whitespace' },
+          ['*'] = { 'codespell' },
         },
-      })
+      }
 
-      vim.keymap.set({ "n", "v" }, "<leader>FF", function()
-        conform.format({
+      vim.keymap.set({ 'n', 'v' }, '<leader>FF', function()
+        conform.format {
           lsp_fallback = true,
           async = false,
           timeout_ms = 1000,
-        })
-      end, { desc = "[F]ormat [F]ile" })
+        }
+      end, { desc = '[F]ormat [F]ile' })
     end,
   },
-})
+}

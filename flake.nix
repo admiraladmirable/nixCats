@@ -154,6 +154,7 @@
               go
               ruff
               codespell
+              gofumpt
             ];
             neonixdev = {
               # also you can do this.

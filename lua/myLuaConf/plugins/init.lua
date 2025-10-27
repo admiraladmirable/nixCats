@@ -1091,7 +1091,7 @@ require('lze').load {
   },
   {
     'lsp-inlayhints.nvim',
-    for_cat = 'general.extra',
+    for_cat = 'general.always',
     event = 'DeferredUIEnter',
     after = function(_)
       require('inlay-hints').setup {}
