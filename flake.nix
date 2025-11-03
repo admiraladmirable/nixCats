@@ -226,6 +226,7 @@
               ];
               go = [ nvim-dap-go ];
               rust = [
+                nvim-dap-lldb
                 nvim-nio
                 nvim-dap-lldb
                 nvim-bacon
