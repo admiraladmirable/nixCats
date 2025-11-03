@@ -124,6 +124,7 @@
             # per nvim package you export
             debug = with pkgs; {
               go = [ delve ];
+              rust = [ vscode-extensions.vadimcn.vscode-lldb ];
             };
             devops = with pkgs; [
               action-validator
@@ -369,6 +370,12 @@
               [
                 "debug"
                 "go"
+              ] # yes it has to be a list of lists
+            ];
+            rust = [
+              [
+                "debug"
+                "rust"
               ] # yes it has to be a list of lists
             ];
           };
