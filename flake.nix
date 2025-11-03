@@ -417,6 +417,7 @@
               markdown = true;
               general = true;
               lint = true;
+              debug = true;
               format = true;
               neonixdev = true;
               test = {
@@ -477,6 +478,7 @@
               general = true;
               neonixdev = true;
               lint = true;
+              debug = true;
               format = true;
               test = true;
               # go = true; # <- disabled but you could enable it with override or module on install
