@@ -436,6 +436,7 @@
               # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
               # go = true; # <- disabled but you could enable it with override or module on install
               go = true;
+              rust = true;
               devops = true;
               typescript = true;
 
@@ -489,7 +490,8 @@
               debug = true;
               format = true;
               test = true;
-              # go = true; # <- disabled but you could enable it with override or module on install
+              go = true; # <- disabled but you could enable it with override or module on install
+              rust = true;
               lspDebugMode = false;
               themer = true;
               colorscheme = "catppuccin-frappe";
