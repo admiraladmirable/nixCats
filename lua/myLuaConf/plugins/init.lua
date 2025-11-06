@@ -822,6 +822,13 @@ require('lze').load {
       },
     },
   },
+  -- {
+  --   'MeanderingProgrammer/render-markdown.nvim',
+  --   for_cat = 'markdown',
+  --   after = function(_)
+  --     require('markdown').setup()
+  --   end,
+  -- },
   {
     'MagicDuck/grug-far.nvim',
     for_cat = 'general.extra',

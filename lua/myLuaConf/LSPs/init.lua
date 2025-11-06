@@ -100,8 +100,6 @@ require('lze').load {
     end,
   },
   {
-    -- name of the lsp
-    'lua_ls',
     enabled = nixCats 'lua' or nixCats 'neonixdev' or false,
     -- provide a table containing filetypes,
     -- and then whatever your functions defined in the function type specs expect.
@@ -341,6 +339,14 @@ require('lze').load {
     lsp = {
       cmd = { 'github-actions-language-server', '--stdio' },
       filetypes = { 'yaml', 'yaml.github', 'yaml.gha', 'ghaction' },
+    },
+  },
+  {
+    'terraform_ls',
+    for_cat = 'devops',
+    lsp = {
+      -- cmd = { 'terraform_ls', '--stdio' },
+      -- filetypes = { 'terraform', 'tf' },
     },
   },
   {
