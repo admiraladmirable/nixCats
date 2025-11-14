@@ -888,7 +888,7 @@ require('lze').load {
     after = function(plugin)
       require('lualine').setup {
         options = {
-          icons_enabled = false,
+          icons_enabled = true,
           theme = colorschemeName,
           component_separators = '|',
           section_separators = '',
