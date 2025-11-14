@@ -67,7 +67,7 @@ return {
       { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
     },
     after = function()
-      require('bufferline').setup {
+      require('bufferline').setup fdsafsd{
         options = {
           close_command = function(bufnr)
             Snacks.bufdelete(bufnr)
