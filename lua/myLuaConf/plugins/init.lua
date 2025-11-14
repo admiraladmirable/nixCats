@@ -760,6 +760,19 @@ require('lze').load {
     end,
   },
   {
+    'mini.icons',
+    for_cat = 'general.extra',
+    event = 'DeferredUIEnter',
+    -- keys = "",
+    after = function(plugin)
+      local icons = require('mini.icons')
+      icons.setup()
+      if icons.mock_nvim_web_devicons then
+        icons.mock_nvim_web_devicons()
+      end
+    end,
+  },
+  {
     'mini.ai',
     for_cat = 'general.extra',
     event = 'DeferredUIEnter',

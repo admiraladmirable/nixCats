@@ -183,6 +183,7 @@
                 mini-pairs
                 mini-ai
                 mini-align
+                mini-icons
                 todo-comments-nvim
                 grug-far-nvim
                 rustaceanvim

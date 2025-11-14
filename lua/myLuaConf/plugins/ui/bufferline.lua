@@ -5,13 +5,15 @@ local diag_icons = {
   Hint = ' ',
 }
 
-local devicons = nil
-do
-  local ok, mod = pcall(require, 'nvim-web-devicons')
+local function safe_require(modname)
+  local ok, mod = pcall(require, modname)
   if ok then
-    devicons = mod
+    return mod
   end
 end
+
+local devicons = safe_require('nvim-web-devicons')
+local mini_icons = safe_require('mini.icons')
 
 local function diagnostics_indicator(_, _, diag)
   local parts = {}
@@ -30,14 +32,73 @@ local function diagnostics_indicator(_, _, diag)
   return table.concat(parts, ' ')
 end
 
-local function filetype_icon(ft)
-  if devicons and ft then
-    local icon = devicons.get_icon_by_filetype(ft, { default = true })
-    if icon then
+local function icon_from_snacks(opts)
+  local snacks = rawget(_G, 'Snacks')
+  local util = snacks and snacks.util
+  local icon_fn = util and util.icon
+  if not icon_fn or not opts then
+    return nil
+  end
+
+  local lookups = {}
+  local path = opts.path or opts.absolute_path or opts.filename
+  if path and path ~= '' then
+    table.insert(lookups, { path, 'file' })
+  end
+  if opts.filetype and opts.filetype ~= '' then
+    table.insert(lookups, { opts.filetype, 'filetype' })
+  end
+
+  for _, lookup in ipairs(lookups) do
+    local ok, icon = pcall(icon_fn, lookup[1], lookup[2])
+    if ok and type(icon) == 'string' and icon ~= '' then
       return icon
     end
   end
-  return ''
+end
+
+local function icon_from_mini(opts)
+  if not mini_icons then
+    return nil
+  end
+
+  local sources = {}
+  if opts.filetype and opts.filetype ~= '' then
+    table.insert(sources, { 'filetype', opts.filetype })
+  end
+  local path = opts.path or opts.absolute_path or opts.filename
+  if path and path ~= '' then
+    table.insert(sources, { 'file', path })
+  elseif opts.extension and opts.extension ~= '' then
+    table.insert(sources, { 'extension', opts.extension })
+  end
+
+  for _, source in ipairs(sources) do
+    local ok, glyph = pcall(mini_icons.get, source[1], source[2])
+    if ok then
+      local icon = glyph
+      if type(glyph) == 'table' then
+        icon = glyph[1] or glyph.icon or glyph.glyph
+      end
+      if type(icon) == 'string' and icon ~= '' then
+        return icon
+      end
+    end
+  end
+end
+
+local function icon_from_devicons(ft)
+  if not devicons or not ft then
+    return nil
+  end
+  local ok, icon = pcall(devicons.get_icon_by_filetype, ft, { default = true })
+  if ok and icon then
+    return icon
+  end
+end
+
+local function filetype_icon(opts)
+  return icon_from_snacks(opts) or icon_from_mini(opts) or icon_from_devicons(opts.filetype) or ''
 end
 
 return {
@@ -92,7 +153,7 @@ return {
           },
           ---@param opts bufferline.IconFetcherOpts
           get_element_icon = function(opts)
-            return filetype_icon(opts.filetype)
+            return filetype_icon(opts)
           end,
         },
       }
