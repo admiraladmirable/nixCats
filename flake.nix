@@ -187,6 +187,10 @@
                 grug-far-nvim
                 rustaceanvim
                 lsp-inlayhints-nvim
+                nvim-web-devicons
+                bufferline-nvim
+                noice-nvim
+                flash-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
               extra = [

@@ -70,6 +70,8 @@ require('lze').load {
   { import = 'myLuaConf.plugins.rust' },
   { import = 'myLuaConf.plugins.ui.edgy' },
   { import = 'myLuaConf.plugins.ui.smear-cursor' },
+  { import = 'myLuaConf.plugins.ui.bufferline' },
+  { import = 'myLuaConf.plugins.ui.noice' },
   {
     'markdown-preview.nvim',
     -- NOTE: for_cat is a custom handler that just sets enabled value for us,
@@ -780,7 +782,9 @@ require('lze').load {
     for_cat = 'general.extra',
     event = 'DeferredUIEnter',
     -- keys = "",
-    after = function(plugin) end,
+    after = function(plugin)
+      require('flash').setup()
+    end,
     keys = {
       {
         's',
