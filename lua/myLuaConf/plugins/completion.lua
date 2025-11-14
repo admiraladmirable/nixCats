@@ -34,6 +34,14 @@ return {
     end,
   },
   {
+    'friendly-snippets',
+    for_cat = 'general.blink',
+    dep_of = { 'luasnip' },
+    -- after = function(_)
+    --   require('friendly-snippets').setup()
+    -- end,
+  },
+  {
     'colorful-menu.nvim',
     for_cat = 'general.blink',
     on_plugin = { 'blink.cmp' },
