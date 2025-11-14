@@ -68,6 +68,8 @@ require('lze').load {
   { import = 'myLuaConf.plugins.treesitter' },
   { import = 'myLuaConf.plugins.completion' },
   { import = 'myLuaConf.plugins.rust' },
+  { import = 'myLuaConf.plugins.ui.edgy' },
+  { import = 'myLuaConf.plugins.ui.smear-cursor' },
   {
     'markdown-preview.nvim',
     -- NOTE: for_cat is a custom handler that just sets enabled value for us,

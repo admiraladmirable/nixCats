@@ -178,6 +178,8 @@
                 vim-repeat
                 plenary-nvim
                 snacks-nvim
+                edgy-nvim
+                smear-cursor-nvim
                 mini-pairs
                 mini-ai
                 mini-align
