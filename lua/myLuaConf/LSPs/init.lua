@@ -165,8 +165,8 @@ require('lze').load {
   {
     'qmlls',
     for_cat = 'devops',
-    cmd = { 'qmlls -E' },
     lsp = {
+      cmd = { 'qmlls', '-E' },
       filetypes = { 'qml', 'qmljs' },
       root_markets = { '.git' },
     },
