@@ -163,6 +163,14 @@ require('lze').load {
     },
   },
   {
+    'qmlls',
+    for_cat = 'devops',
+    lsp = {
+      filetypes = { 'qml', 'qmljs' },
+      root_markets = { '.git' },
+    },
+  },
+  {
     'tailwindcss',
     for_cat = 'web.tailwindcss',
     lsp = {

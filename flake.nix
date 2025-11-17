@@ -135,6 +135,7 @@
               terraform-ls
               tofu-ls
               yaml-language-server
+              kdePackages.qtdeclarative
             ];
             typescript = with pkgs.nodePackages; [
               typescript-language-server
