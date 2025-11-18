@@ -193,6 +193,7 @@
                 bufferline-nvim
                 noice-nvim
                 flash-nvim
+                diffview-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
               extra = [
