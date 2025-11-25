@@ -354,7 +354,7 @@ require('lze').load {
     'terraform_ls',
     for_cat = 'devops',
     lsp = {
-      -- cmd = { 'terraform_ls', '--stdio' },
+      cmd = { 'terraform-ls', '--stdio' },
       filetypes = { 'terraform', 'tf' },
     },
   },
