@@ -351,11 +351,11 @@ require('lze').load {
     },
   },
   {
-    'terraform_ls',
+    'terraformls',
     for_cat = 'devops',
     lsp = {
       -- cmd = { 'terraform-ls', '--stdio' },
-      filetypes = { 'terraform', 'tf' },
+      filetypes = { 'terraform', 'hcl' },
     },
   },
   {

@@ -499,6 +499,7 @@
               neonixdev = true;
               lint = true;
               debug = true;
+              devops = true;
               format = true;
               test = true;
               go = true; # <- disabled but you could enable it with override or module on install
