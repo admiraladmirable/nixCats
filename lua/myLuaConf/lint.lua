@@ -27,7 +27,7 @@ require('lze').load {
         bash = { 'bash' },
         lua = { 'luacheck' },
         -- rust = { 'rustfmt', lsp_format = 'fallback' },
-        json = { 'jsonlint' },
+        json = { 'eslint' },
         jsonc = { 'prettierd', 'prettier', stop_after_first = true },
         css = { 'prettierd', 'prettier', stop_after_first = true },
         scss = { 'prettierd', 'prettier', stop_after_first = true },

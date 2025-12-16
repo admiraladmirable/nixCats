@@ -118,7 +118,7 @@
               yamllint
               helm
               nixfmt-rfc-style
-              nodePackages.jsonlint
+              eslint
             ];
             # but you can choose which ones you want
             # per nvim package you export
