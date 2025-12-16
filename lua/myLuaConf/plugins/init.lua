@@ -765,7 +765,7 @@ require('lze').load {
     event = 'DeferredUIEnter',
     -- keys = "",
     after = function(plugin)
-      local icons = require('mini.icons')
+      local icons = require 'mini.icons'
       icons.setup()
       if icons.mock_nvim_web_devicons then
         icons.mock_nvim_web_devicons()
@@ -841,13 +841,14 @@ require('lze').load {
       },
     },
   },
-  -- {
-  --   'MeanderingProgrammer/render-markdown.nvim',
-  --   for_cat = 'markdown',
-  --   after = function(_)
-  --     require('markdown').setup()
-  --   end,
-  -- },
+  {
+    'render-markdown.nvim',
+    for_cat = 'markdown',
+    event = 'DeferredUIEnter',
+    after = function(_)
+      require('render-markdown').setup()
+    end,
+  },
   {
     'MagicDuck/grug-far.nvim',
     for_cat = 'general.extra',
