@@ -162,10 +162,47 @@ require('lze').load {
     for_cat = 'general.extra',
     priority = 1000,
     lazy = false,
+    init = function()
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'VeryLazy',
+        callback = function()
+          _G.dd = function(...)
+            Snacks.debug.inspect(...)
+          end
+          _G.bt = function()
+            Snacks.debug.backtrace()
+          end
+
+          if vim.fn.has 'nvim-0.11' == 1 then
+            vim._print = function(_, ...)
+              dd(...)
+            end
+          else
+            vim.print = _G.dd
+          end
+
+          Snacks.toggle.option('spell', { name = 'Spelling' }):map('<leader>us')
+          Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
+          Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
+          Snacks.toggle.diagnostics():map('<leader>ud')
+          Snacks.toggle.line_number():map('<leader>ul')
+          Snacks.toggle.option('conceallevel', {
+            off = 0,
+            on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
+          }):map('<leader>uc')
+          Snacks.toggle.treesitter():map('<leader>uT')
+          Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map('<leader>ub')
+          Snacks.toggle.inlay_hints():map('<leader>uh')
+          Snacks.toggle.indent():map('<leader>ug')
+          Snacks.toggle.dim():map('<leader>uD')
+        end,
+      })
+    end,
     after = function(_)
       require('snacks').setup {
         bigfile = { enabled = true },
         terminal = { enabled = true },
+        debug = { enabled = true },
         dashboard = {
           preset = {
             keys = {
@@ -197,6 +234,7 @@ require('lze').load {
             { section = 'keys', gap = 1, padding = 1 },
           },
         },
+        dim = { enabled = true },
         explorer = { enabled = true },
         indent = { enabled = true },
         input = { enabled = true },
@@ -222,6 +260,7 @@ require('lze').load {
           end,
         },
         statuscolumn = { enabled = true },
+        toggle = { enabled = true },
         words = { enabled = true },
       }
     end,
@@ -693,14 +732,6 @@ require('lze').load {
         end,
         desc = 'Prev Reference',
         mode = { 'n', 't' },
-      },
-      {
-        '<leader>uh',
-        function()
-          Snacks.toggle.inlay_hints()
-        end,
-        desc = 'Toggle Inlay Hints',
-        -- mode = { 'u', 'h' },
       },
       {
         '<leader>N',
