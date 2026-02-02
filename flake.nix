@@ -187,7 +187,6 @@
                 todo-comments-nvim
                 grug-far-nvim
                 rustaceanvim
-                lsp-inlayhints-nvim
                 nvim-web-devicons
                 bufferline-nvim
                 noice-nvim

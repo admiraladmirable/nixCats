@@ -1132,13 +1132,4 @@ require('lze').load {
       },
     },
   },
-  {
-    'lsp-inlayhints.nvim',
-    for_cat = 'general.always',
-    event = 'LspAttach',
-    after = function(_)
-      require('lsp-inlayhints').setup()
-      -- require('inlay-hints').setup {}
-    end,
-  },
 }
