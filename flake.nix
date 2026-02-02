@@ -99,13 +99,12 @@
           lspsAndRuntimeDeps = {
             # some categories of stuff.
             general = with pkgs; [
+              lazygit
               universal-ctags
               ripgrep
               fd
               fixjson
-              (pkgs.writeShellScriptBin "lazygit" ''
-                exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${pkgs.writeText "lazygit_config.yml" ""} "$@"
-              '')
+              tree-sitter
             ];
             # these names are arbitrary.
             lint = with pkgs; [
@@ -117,7 +116,7 @@
               lua54Packages.luacheck
               yamllint
               helm
-              nixfmt-rfc-style
+              nixfmt
               eslint
             ];
             # but you can choose which ones you want
