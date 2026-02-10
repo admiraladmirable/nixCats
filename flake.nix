@@ -123,7 +123,11 @@
             # per nvim package you export
             debug = with pkgs; {
               go = [ delve ];
-              rust = [ vscode-extensions.vadimcn.vscode-lldb ];
+              rust = [
+                (writeShellScriptBin "codelldb" ''
+                  exec ${vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb "$@"
+                '')
+              ];
             };
             devops = with pkgs; [
               action-validator
