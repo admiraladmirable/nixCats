@@ -203,7 +203,84 @@ require('lze').load {
         explorer = { enabled = true },
         indent = { enabled = true },
         input = { enabled = true },
-        picker = { enabled = true },
+        picker = {
+          enabled = true,
+          actions = {
+            explorer_paste = function(picker)
+              local reg = vim.v.register or '+'
+              local paths = vim.split(vim.fn.getreg(reg) or '', '\n', { plain = true })
+              local uv = vim.uv or vim.loop
+              paths = vim.tbl_filter(function(path)
+                return path ~= '' and uv.fs_stat(path) ~= nil
+              end, paths)
+
+              if #paths == 0 then
+                return snacks.notify.warn(("The `%s` register does not contain any files"):format(reg))
+              end
+
+              local dir = picker:dir()
+              local tree = require 'snacks.explorer.tree'
+              local util = snacks.picker.util
+              local copied = 0
+              local skipped = 0
+
+              local function finalize()
+                tree:refresh(dir)
+                tree:open(dir)
+                picker:find()
+                local msg = ('Copied %d path(s)'):format(copied)
+                if skipped > 0 then
+                  msg = msg .. (', skipped %d'):format(skipped)
+                end
+                snacks.notify.info(msg)
+              end
+
+              local function is_valid_name(name)
+                return name ~= '' and name ~= '.' and name ~= '..' and not name:find('/', 1, true)
+              end
+
+              local copy_one
+              local copy_with_name
+
+              copy_with_name = function(src, name, next_fn)
+                local to = dir .. '/' .. name
+                if uv.fs_stat(to) == nil then
+                  util.copy_path(src, to)
+                  copied = copied + 1
+                  return next_fn()
+                end
+
+                snacks.input({
+                  prompt = ('%s already exists. Rename copy to (empty to skip):'):format(name),
+                }, function(value)
+                  if value == nil or vim.trim(value) == '' then
+                    skipped = skipped + 1
+                    return next_fn()
+                  end
+                  value = vim.trim(value)
+                  if not is_valid_name(value) then
+                    snacks.notify.warn('Please provide a file/folder name without `/`')
+                    return copy_with_name(src, name, next_fn)
+                  end
+                  return copy_with_name(src, value, next_fn)
+                end)
+              end
+
+              copy_one = function(i)
+                local src = paths[i]
+                if not src then
+                  return finalize()
+                end
+                local name = vim.fn.fnamemodify(src, ':t')
+                copy_with_name(src, name, function()
+                  copy_one(i + 1)
+                end)
+              end
+
+              copy_one(1)
+            end,
+          },
+        },
         notifier = { enabled = true },
         quickfile = { enabled = true },
         scope = { enabled = true },
