@@ -887,8 +887,8 @@ require('lze').load {
       map('n', '<leader>he', '<Cmd>Hi -<CR>', { desc = 'Highlighter Erase' })
       map('x', '<leader>he', '<Cmd>Hi -x<CR>', { desc = 'Highlighter Erase' })
       map('n', '<leader>hc', '<Cmd>Hi clear<CR>', { desc = 'Highlighter Clear' })
-      map('n', '<leader>h/', '<Cmd>Hi /<CR>', { desc = 'Highlighter Find' })
-      map('x', '<leader>h/', '<Cmd>Hi /x<CR>', { desc = 'Highlighter Find' })
+      map('n', '<leader>h/', ':<C-U><C-R>=highlighter#Find("/")<CR>', { desc = 'Highlighter Find' })
+      map('x', '<leader>h/', ':<C-U><C-R>=highlighter#Find("/x")<CR>', { desc = 'Highlighter Find' })
       map('n', '<leader>hS', '<Cmd>Hi +%<CR>', { desc = 'Highlighter Set Line' })
       map('x', '<leader>hS', '<Cmd>Hi +x%<CR>', { desc = 'Highlighter Set Line' })
     end,
