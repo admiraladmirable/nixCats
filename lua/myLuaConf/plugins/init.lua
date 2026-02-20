@@ -874,6 +874,26 @@ require('lze').load {
     end,
   },
   {
+    'vim-highlighter',
+    for_cat = 'general.extra',
+    event = 'DeferredUIEnter',
+    before = function(_)
+      vim.g.HiMapKeys = 0
+    end,
+    after = function(_)
+      local map = vim.keymap.set
+      map('n', '<leader>hs', '<Cmd>Hi +<CR>', { desc = 'Highlighter Set' })
+      map('x', '<leader>hs', '<Cmd>Hi +x<CR>', { desc = 'Highlighter Set' })
+      map('n', '<leader>he', '<Cmd>Hi -<CR>', { desc = 'Highlighter Erase' })
+      map('x', '<leader>he', '<Cmd>Hi -x<CR>', { desc = 'Highlighter Erase' })
+      map('n', '<leader>hc', '<Cmd>Hi clear<CR>', { desc = 'Highlighter Clear' })
+      map('n', '<leader>h/', '<Cmd>Hi /<CR>', { desc = 'Highlighter Find' })
+      map('x', '<leader>h/', '<Cmd>Hi /x<CR>', { desc = 'Highlighter Find' })
+      map('n', '<leader>hS', '<Cmd>Hi +%<CR>', { desc = 'Highlighter Set Line' })
+      map('x', '<leader>hS', '<Cmd>Hi +x%<CR>', { desc = 'Highlighter Set Line' })
+    end,
+  },
+  {
     'mini.icons',
     for_cat = 'general.extra',
     event = 'DeferredUIEnter',
@@ -1160,6 +1180,13 @@ require('lze').load {
         { '<leader>d_', hidden = true },
         { '<leader>g', group = '[g]it' },
         { '<leader>g_', hidden = true },
+        { '<leader>h', group = '[h]ighlighter', icon = '󰛨' },
+        { '<leader>h_', hidden = true },
+        { '<leader>hs', desc = 'Set highlight', mode = { 'n', 'x' } },
+        { '<leader>he', desc = 'Erase highlight', mode = { 'n', 'x' } },
+        { '<leader>hc', desc = 'Clear highlights', mode = 'n' },
+        { '<leader>h/', desc = 'Find in files', mode = { 'n', 'x' } },
+        { '<leader>hS', desc = 'Set line highlight', mode = { 'n', 'x' } },
         { '<leader>m', group = '[m]arkdown' },
         { '<leader>m_', hidden = true },
         { '<leader>r', group = '[r]ename' },

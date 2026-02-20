@@ -23,6 +23,10 @@
     #   url = "github:m-demare/hlargs.nvim";
     #   flake = false;
     # };
+    "plugins-vim-highlighter" = {
+      url = "github:azabiong/vim-highlighter";
+      flake = false;
+    };
 
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
@@ -189,6 +193,7 @@
                 mini-align
                 mini-icons
                 mini-cursorword
+                pkgs.neovimPlugins.vim-highlighter
                 todo-comments-nvim
                 grug-far-nvim
                 rustaceanvim

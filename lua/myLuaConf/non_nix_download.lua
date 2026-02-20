@@ -77,6 +77,7 @@ require('nixCatsUtils.catPacker').setup({
   { 'lukas-reineke/indent-blankline.nvim', opt = true, },
   { 'numToStr/Comment.nvim', opt = true, as = "comment.nvim", },
   { 'kylechui/nvim-surround', opt = true, },
+  { 'azabiong/vim-highlighter', opt = true, as = "vim-highlighter", },
   {
     "iamcco/markdown-preview.nvim",
     build = ":call mkdp#util#install()",
