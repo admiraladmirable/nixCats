@@ -188,6 +188,7 @@
                 mini-ai
                 mini-align
                 mini-icons
+                mini-cursorword
                 todo-comments-nvim
                 grug-far-nvim
                 rustaceanvim
@@ -467,7 +468,7 @@
               # there is also an extra table you can use to pass extra stuff.
               # but you can pass all the same stuff in any of these sets and access it in lua
               nixdExtras = {
-                nixpkgs = ''import ${pkgs.path} {}'';
+                nixpkgs = "import ${pkgs.path} {}";
                 # or inherit nixpkgs;
               };
             };
@@ -518,7 +519,7 @@
               # even though path.to.cat would be an indexing error in that case.
               # this is to mimic the concept of "subcategories" but may get in the way of just fetching values.
               nixdExtras = {
-                nixpkgs = ''import ${pkgs.path} {}'';
+                nixpkgs = "import ${pkgs.path} {}";
                 # or inherit nixpkgs;
               };
               # yes even tortured inputs work.
@@ -601,7 +602,7 @@
             name = defaultPackageName;
             packages = [ defaultPackage ];
             inputsFrom = [ ];
-            shellHook = '''';
+            shellHook = "";
           };
         };
 

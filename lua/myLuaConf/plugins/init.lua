@@ -215,7 +215,7 @@ require('lze').load {
               end, paths)
 
               if #paths == 0 then
-                return snacks.notify.warn(("The `%s` register does not contain any files"):format(reg))
+                return snacks.notify.warn(('The `%s` register does not contain any files'):format(reg))
               end
 
               local dir = picker:dir()
@@ -259,7 +259,7 @@ require('lze').load {
                   end
                   value = vim.trim(value)
                   if not is_valid_name(value) then
-                    snacks.notify.warn('Please provide a file/folder name without `/`')
+                    snacks.notify.warn 'Please provide a file/folder name without `/`'
                     return copy_with_name(src, name, next_fn)
                   end
                   return copy_with_name(src, value, next_fn)
@@ -321,20 +321,22 @@ require('lze').load {
         vim.print = _G.dd
       end
 
-      snacks.toggle.option('spell', { name = 'Spelling' }):map('<leader>us')
-      snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
-      snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
-      snacks.toggle.diagnostics():map('<leader>ud')
-      snacks.toggle.line_number():map('<leader>ul')
-      snacks.toggle.option('conceallevel', {
-        off = 0,
-        on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
-      }):map('<leader>uc')
-      snacks.toggle.treesitter():map('<leader>uT')
-      snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map('<leader>ub')
-      snacks.toggle.inlay_hints():map('<leader>uh')
-      snacks.toggle.indent():map('<leader>ug')
-      snacks.toggle.dim():map('<leader>uD')
+      snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
+      snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
+      snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '<leader>uL'
+      snacks.toggle.diagnostics():map '<leader>ud'
+      snacks.toggle.line_number():map '<leader>ul'
+      snacks.toggle
+        .option('conceallevel', {
+          off = 0,
+          on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
+        })
+        :map '<leader>uc'
+      snacks.toggle.treesitter():map '<leader>uT'
+      snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map '<leader>ub'
+      snacks.toggle.inlay_hints():map '<leader>uh'
+      snacks.toggle.indent():map '<leader>ug'
+      snacks.toggle.dim():map '<leader>uD'
     end,
     keys = {
       -- Top Pickers & Explorer
@@ -860,6 +862,15 @@ require('lze').load {
     -- keys = "",
     after = function(plugin)
       require('mini.align').setup()
+    end,
+  },
+  {
+    'mini.cursorword',
+    for_cat = 'general.extra',
+    event = 'DeferredUIEnter',
+    -- keys = "",
+    after = function(plugin)
+      require('mini.cursorword').setup()
     end,
   },
   {
