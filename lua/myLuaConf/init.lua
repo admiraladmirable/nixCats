@@ -23,6 +23,7 @@ require("myLuaConf.LSPs")
 -- But we have a good base setup here as an example anyway!
 if nixCats('debug') then
   require('myLuaConf.debug')
+  require('myLuaConf.neotest')
 end
 -- NOTE: we included these though! Or, at least, the category is enabled.
 -- these contain nvim-lint and conform setups.

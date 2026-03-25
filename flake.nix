@@ -153,7 +153,7 @@
               gopls
               gotools
               go-tools
-              gccgo
+              # gccgo # temporarily disabled — fails to build on current nixpkgs
             ];
             # and easily check if they are included in lua
             format = with pkgs; [
@@ -241,13 +241,18 @@
                 nvim-dap
                 nvim-dap-ui
                 nvim-dap-virtual-text
+                neotest
               ];
-              go = [ nvim-dap-go ];
+              go = [
+                nvim-dap-go
+                neotest-go
+              ];
               rust = [
                 nvim-dap-lldb
                 nvim-nio
                 nvim-dap-lldb
                 nvim-bacon
+                neotest-rust
               ];
             };
             lint = with pkgs.vimPlugins; [
