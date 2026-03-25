@@ -128,6 +128,7 @@
             debug = with pkgs; {
               go = [ delve ];
               rust = [
+                cargo-nextest
                 (writeShellScriptBin "codelldb" ''
                   exec ${vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb "$@"
                 '')
