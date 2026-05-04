@@ -145,7 +145,7 @@
               yaml-language-server
               kdePackages.qtdeclarative
             ];
-            typescript = with pkgs.nodePackages; [
+            typescript = with pkgs; [
               typescript-language-server
               eslint
               prettier
