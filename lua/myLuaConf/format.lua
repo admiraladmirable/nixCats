@@ -22,6 +22,7 @@ require('lze').load {
           lua = { 'stylua' },
           rust = { 'rustfmt', lsp_format = 'fallback' },
           json = { 'fixjson' },
+          jsonl = { 'jq_jsonl' },
           jsonc = { 'prettierd', 'prettier', stop_after_first = true },
           css = { 'prettierd', 'prettier', stop_after_first = true },
           scss = { 'prettierd', 'prettier', stop_after_first = true },
@@ -34,6 +35,12 @@ require('lze').load {
           go = { 'gofumt' },
           ['_'] = { 'trim_whitespace' },
           ['*'] = { 'codespell' },
+        },
+        formatters = {
+          jq_jsonl = {
+            command = 'jq',
+            args = { '-c' },
+          },
         },
       }
 

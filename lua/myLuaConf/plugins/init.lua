@@ -770,6 +770,17 @@ require('lze').load {
         desc = 'Lazygit',
       },
       {
+        '<leader>jj',
+        function()
+          Snacks.terminal('jjui', {
+            env = {
+              JJ_EDITOR = ('nvim --server %s --remote-wait'):format(vim.v.servername),
+            },
+          })
+        end,
+        desc = 'jjui',
+      },
+      {
         '<leader>un',
         function()
           Snacks.notifier.hide()
@@ -1180,6 +1191,8 @@ require('lze').load {
         { '<leader>d_', hidden = true },
         { '<leader>g', group = '[g]it' },
         { '<leader>g_', hidden = true },
+        { '<leader>j', group = '[j]ujutsu' },
+        { '<leader>j_', hidden = true },
         { '<leader>h', group = '[h]ighlighter', icon = '󰛨' },
         { '<leader>h_', hidden = true },
         { '<leader>hs', desc = 'Set highlight', mode = { 'n', 'x' } },

@@ -104,6 +104,8 @@
             # some categories of stuff.
             general = with pkgs; [
               lazygit
+              jujutsu
+              jjui
               universal-ctags
               ripgrep
               fd
@@ -160,6 +162,7 @@
             format = with pkgs; [
               stylua
               shfmt
+              jq
               rust-analyzer
               go
               ruff
