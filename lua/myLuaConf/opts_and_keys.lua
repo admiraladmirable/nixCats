@@ -2,6 +2,13 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Expose the running nvim binary to child processes (lazygit, jjui, terminals).
+-- Needed because the `nvim` command is a shell alias to `nix run`, which doesn't
+-- propagate into subprocesses, so things like lazygit's `e` (edit file) fail with
+-- "nvim: command not found". With this on PATH, the snacks lazygit `nvim-remote`
+-- editPreset opens files in this running instance via `--server $NVIM --remote`.
+vim.env.PATH = vim.fs.dirname(vim.v.progpath) .. ':' .. vim.env.PATH
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
