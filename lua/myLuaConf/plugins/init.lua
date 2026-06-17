@@ -104,6 +104,22 @@ require('lze').load {
     end,
   },
   {
+    'hunk.nvim',
+    for_cat = 'general.extra',
+    cmd = { 'DiffEditor' },
+    after = function(_)
+      require('hunk').setup {}
+    end,
+  },
+  {
+    'helm-ls.nvim',
+    for_cat = 'devops',
+    lazy = false,
+    after = function(_)
+      require('helm-ls').setup {}
+    end,
+  },
+  {
     'undotree',
     for_cat = 'general.extra',
     cmd = { 'UndotreeToggle', 'UndotreeHide', 'UndotreeShow', 'UndotreeFocus', 'UndotreePersistUndo' },

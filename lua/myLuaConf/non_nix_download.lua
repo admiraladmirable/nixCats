@@ -42,6 +42,7 @@ require('nixCatsUtils.catPacker').setup({
   { 'williamboman/mason-lspconfig.nvim', opt = true, },
   { 'j-hui/fidget.nvim', opt = true, },
   { 'neovim/nvim-lspconfig', opt = true, },
+  { 'qvalentin/helm-ls.nvim', opt = true, },
 
   --  NOTE:  we take care of lazy loading elsewhere in an autocommand
     -- so that we can use the same code on and off nix.

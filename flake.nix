@@ -204,6 +204,7 @@
                 nvim-web-devicons
                 bufferline-nvim
                 noice-nvim
+                nui-nvim
                 flash-nvim
                 diffview-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
@@ -274,6 +275,9 @@
             neonixdev = with pkgs.vimPlugins; [
               lazydev-nvim
             ];
+            devops = with pkgs.vimPlugins; [
+              helm-ls-nvim
+            ];
             general = {
               blink = with pkgs.vimPlugins; [
                 luasnip
@@ -318,6 +322,7 @@
                 vim-startuptime
                 snacks-nvim
                 trouble-nvim
+                hunk-nvim
                 # If it was included in your flake inputs as plugins-hlargs,
                 # this would be how to add that plugin in your config.
                 # pkgs.neovimPlugins.hlargs

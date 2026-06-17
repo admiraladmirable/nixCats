@@ -172,6 +172,19 @@ require('lze').load {
     },
   },
   {
+    'helm_ls',
+    for_cat = 'devops',
+    lsp = {
+      settings = {
+        ['helm-ls'] = {
+          yamlls = {
+            path = 'yaml-language-server',
+          },
+        },
+      },
+    },
+  },
+  {
     'tailwindcss',
     for_cat = 'web.tailwindcss',
     lsp = {
