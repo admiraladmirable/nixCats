@@ -163,6 +163,10 @@
               stylua
               shfmt
               jq
+              yq-go
+              prettier
+              prettierd
+              rustfmt
               rust-analyzer
               go
               ruff

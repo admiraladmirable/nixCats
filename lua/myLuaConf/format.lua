@@ -24,15 +24,15 @@ require('lze').load {
           json = { 'fixjson' },
           jsonl = { 'jq_jsonl' },
           jsonc = { 'prettierd', 'prettier', stop_after_first = true },
+          yaml = { 'prettier' },
           css = { 'prettierd', 'prettier', stop_after_first = true },
           scss = { 'prettierd', 'prettier', stop_after_first = true },
           less = { 'prettierd', 'prettier', stop_after_first = true },
           javascript = { 'prettierd', 'prettier', stop_after_first = true },
-          hcl = { 'packer_fmt' },
           terraform = { 'terraform_fmt' },
           ['terraform-vars'] = { 'terraform_fmt' },
           nix = { 'nixfmt' },
-          go = { 'gofumt' },
+          go = { 'gofumpt' },
           ['_'] = { 'trim_whitespace' },
           ['*'] = { 'codespell' },
         },
@@ -43,6 +43,33 @@ require('lze').load {
           },
         },
       }
+
+      vim.api.nvim_create_user_command('YamlSortKeys', function()
+        if vim.bo.filetype == 'helm' then
+          vim.notify('YamlSortKeys expects valid YAML; Helm templates should be rendered first.', vim.log.levels.WARN)
+          return
+        end
+
+        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+        local input = table.concat(lines, '\n')
+        if input ~= '' then
+          input = input .. '\n'
+        end
+
+        local result = vim.system({ 'yq', 'eval', 'sort_keys(..)', '-' }, {
+          stdin = input,
+          text = true,
+        }):wait()
+
+        if result.code ~= 0 then
+          vim.notify(result.stderr ~= '' and result.stderr or 'Failed to sort YAML keys', vim.log.levels.ERROR)
+          return
+        end
+
+        local output = result.stdout:gsub('\n$', '')
+        local sorted = output == '' and {} or vim.split(output, '\n', { plain = true })
+        vim.api.nvim_buf_set_lines(0, 0, -1, false, sorted)
+      end, { desc = 'Sort YAML mapping keys with yq' })
 
       vim.keymap.set({ 'n', 'v' }, '<leader>FF', function()
         conform.format {
