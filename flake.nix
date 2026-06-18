@@ -206,7 +206,7 @@
                 noice-nvim
                 nui-nvim
                 flash-nvim
-                diffview-nvim
+                diffview-plus-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
               extra = [
