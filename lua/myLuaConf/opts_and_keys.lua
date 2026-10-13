@@ -102,10 +102,10 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll Up' })
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Next Search Result' })
 vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous Search Result' })
 
-vim.keymap.set('n', '<leader><leader>[', '<cmd>bprev<CR>', { desc = 'Previous buffer' })
-vim.keymap.set('n', '<leader><leader>]', '<cmd>bnext<CR>', { desc = 'Next buffer' })
-vim.keymap.set('n', '<leader><leader>l', '<cmd>b#<CR>', { desc = 'Last buffer' })
-vim.keymap.set('n', '<leader><leader>d', '<cmd>bdelete<CR>', { desc = 'delete buffer' })
+vim.keymap.set('n', '<leader>b[', '<cmd>bprev<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>b]', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader>bb', '<cmd>b#<CR>', { desc = 'Last buffer' })
+vim.keymap.set('n', '<leader>bD', '<cmd>bdelete<CR>', { desc = 'delete buffer' })
 
 -- see help sticky keys on windows
 vim.cmd [[command! W w]]
@@ -120,8 +120,14 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', function()
+  if nixCats 'general.extra' then
+    require('snacks').picker.diagnostics_buffer()
+  else
+    vim.diagnostic.setloclist()
+  end
+end, { desc = 'Buffer Diagnostics' })
 
 -- kickstart.nvim starts you with this.
 -- But it constantly clobbers your system clipboard whenever you delete anything.

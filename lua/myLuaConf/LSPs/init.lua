@@ -100,6 +100,7 @@ require('lze').load {
     end,
   },
   {
+    'lua_ls',
     enabled = nixCats 'lua' or nixCats 'neonixdev' or false,
     -- provide a table containing filetypes,
     -- and then whatever your functions defined in the function type specs expect.

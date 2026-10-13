@@ -29,6 +29,8 @@ require('nixCatsUtils.catPacker').setup({
   { 'nvim-lua/plenary.nvim', },
   { 'tpope/vim-repeat', },
   { 'rcarriga/nvim-notify', },
+  -- Snacks GitHub pickers also need gh on PATH; authenticate with gh auth login.
+  { 'folke/snacks.nvim', },
 
   { 'nvim-treesitter/nvim-treesitter-textobjects', opt = true, },
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', opt = true, },
@@ -57,6 +59,10 @@ require('nixCatsUtils.catPacker').setup({
   { 'xzbdmw/colorful-menu.nvim', opt = true, },
 
   -- lint and format
+  -- External tools must be on PATH outside Nix: checkmake, actionlint, bash,
+  -- terraform, markdownlint-cli2, commitlint, hadolint, luacheck, yamllint,
+  -- eslint, and nix. Conform also needs the configured formatters; codespell
+  -- is optional and only runs via :FormatSpelling.
   { 'mfussenegger/nvim-lint', opt = true, },
   { 'stevearc/conform.nvim', opt = true, },
 

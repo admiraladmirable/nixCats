@@ -104,6 +104,7 @@
             # some categories of stuff.
             general = with pkgs; [
               lazygit
+              gh
               jujutsu
               jjui
               universal-ctags
@@ -115,7 +116,10 @@
             # these names are arbitrary.
             lint = with pkgs; [
               markdownlint-cli2
-              checkmate
+              checkmake
+              actionlint
+              bash
+              terraform
               commitlint
               hadolint
               stylua

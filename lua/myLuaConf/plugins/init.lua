@@ -16,6 +16,7 @@ if ok then
   }
   vim.notify = notify
   vim.keymap.set('n', '<Esc>', function()
+    vim.cmd.nohlsearch()
     notify.dismiss { silent = true }
   end, { desc = 'dismiss notify popup and clear hlsearch' })
 end
@@ -183,6 +184,7 @@ require('lze').load {
       local snacks = require 'snacks'
       snacks.setup {
         bigfile = { enabled = true },
+        gh = {},
         terminal = { enabled = true },
         debug = { enabled = true },
         dashboard = {
@@ -222,6 +224,7 @@ require('lze').load {
         input = { enabled = true },
         picker = {
           enabled = true,
+          ui_select = true,
           actions = {
             explorer_paste = function(picker)
               local reg = vim.v.register or '+'
@@ -441,6 +444,35 @@ require('lze').load {
           Snacks.picker.recent()
         end,
         desc = 'Recent',
+      },
+      -- GitHub (Snacks gh uses the authenticated gh CLI)
+      {
+        '<leader>gi',
+        function()
+          Snacks.picker.gh_issue()
+        end,
+        desc = 'GitHub Issues (open)',
+      },
+      {
+        '<leader>gI',
+        function()
+          Snacks.picker.gh_issue({ state = 'all' })
+        end,
+        desc = 'GitHub Issues (all)',
+      },
+      {
+        '<leader>gp',
+        function()
+          Snacks.picker.gh_pr()
+        end,
+        desc = 'GitHub Pull Requests (open)',
+      },
+      {
+        '<leader>gP',
+        function()
+          Snacks.picker.gh_pr({ state = 'all' })
+        end,
+        desc = 'GitHub Pull Requests (all)',
       },
       -- git
       {
@@ -669,49 +701,6 @@ require('lze').load {
           Snacks.picker.colorschemes()
         end,
         desc = 'Colorschemes',
-      },
-      -- LSP
-      {
-        'gd',
-        function()
-          Snacks.picker.lsp_definitions()
-        end,
-        desc = 'Goto Definition',
-      },
-      {
-        'gD',
-        function()
-          Snacks.picker.lsp_declarations()
-        end,
-        desc = 'Goto Declaration',
-      },
-      {
-        'gI',
-        function()
-          Snacks.picker.lsp_implementations()
-        end,
-        desc = 'Goto Implementation',
-      },
-      {
-        'gy',
-        function()
-          Snacks.picker.lsp_type_definitions()
-        end,
-        desc = 'Goto T[y]pe Definition',
-      },
-      {
-        '<leader>ss',
-        function()
-          Snacks.picker.lsp_symbols()
-        end,
-        desc = 'LSP Symbols',
-      },
-      {
-        '<leader>sS',
-        function()
-          Snacks.picker.lsp_workspace_symbols()
-        end,
-        desc = 'LSP Workspace Symbols',
       },
       -- Other
       {
@@ -1192,11 +1181,11 @@ require('lze').load {
     after = function(plugin)
       require('which-key').setup {}
       require('which-key').add {
-        { '<leader><leader>', group = 'buffer commands' },
-        { '<leader><leader>_', hidden = true },
+        { '<leader>b', group = 'Buffers' },
+        { '<leader>T', group = 'Telescope' },
         { '<leader>c', group = '[c]ode' },
         { '<leader>c_', hidden = true },
-        { '<leader>d', group = '[d]iff' },
+        { '<leader>d', group = 'Diff / Debug' },
         { '<leader>d_', hidden = true },
         { '<leader>g', group = '[g]it' },
         { '<leader>g_', hidden = true },

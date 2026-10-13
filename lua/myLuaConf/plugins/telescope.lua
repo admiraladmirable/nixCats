@@ -59,16 +59,15 @@ return {
     'telescope.nvim',
     for_cat = 'general.telescope',
     cmd = { 'Telescope', 'LiveGrepGitRoot' },
-    -- NOTE: our on attach function defines keybinds that call telescope.
-    -- so, the on_require handler will load telescope when we use those.
+    -- Keep Telescope available on demand, with its own key namespace.
     on_require = { 'telescope' },
     -- event = "",
     -- ft = "",
     keys = {
-      { '<leader>sM', '<cmd>Telescope notify<CR>', mode = { 'n' }, desc = '[S]earch [M]essage' },
-      { '<leader>sp', live_grep_git_root, mode = { 'n' }, desc = '[S]earch git [P]roject root' },
+      { '<leader>TM', '<cmd>Telescope notify<CR>', mode = { 'n' }, desc = '[S]earch [M]essage' },
+      { '<leader>Tp', live_grep_git_root, mode = { 'n' }, desc = '[S]earch git [P]roject root' },
       {
-        '<leader>/',
+        '<leader>T/',
         function()
           -- Slightly advanced example of overriding default behavior and theme
           -- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -82,7 +81,7 @@ return {
         desc = '[/] Fuzzily search in current buffer',
       },
       {
-        '<leader>s/',
+        '<leader>To',
         function()
           require('telescope.builtin').live_grep {
             grep_open_files = true,
@@ -93,7 +92,7 @@ return {
         desc = '[S]earch [/] in Open Files',
       },
       {
-        '<leader><leader>s',
+        '<leader>Tb',
         function()
           return require('telescope.builtin').buffers()
         end,
@@ -101,7 +100,7 @@ return {
         desc = '[ ] Find existing buffers',
       },
       {
-        '<leader>s.',
+        '<leader>T.',
         function()
           return require('telescope.builtin').oldfiles()
         end,
@@ -109,7 +108,7 @@ return {
         desc = '[S]earch Recent Files ("." for repeat)',
       },
       {
-        '<leader>sr',
+        '<leader>Tr',
         function()
           return require('telescope.builtin').resume()
         end,
@@ -117,7 +116,7 @@ return {
         desc = '[S]earch [R]esume',
       },
       {
-        '<leader>sd',
+        '<leader>Td',
         function()
           return require('telescope.builtin').diagnostics()
         end,
@@ -125,7 +124,7 @@ return {
         desc = '[S]earch [D]iagnostics',
       },
       {
-        '<leader>sg',
+        '<leader>Tg',
         function()
           return require('telescope.builtin').live_grep()
         end,
@@ -133,7 +132,7 @@ return {
         desc = '[S]earch by [G]rep',
       },
       {
-        '<leader>sw',
+        '<leader>Tw',
         function()
           return require('telescope.builtin').grep_string()
         end,
@@ -141,7 +140,7 @@ return {
         desc = '[S]earch current [W]ord',
       },
       {
-        '<leader>ss',
+        '<leader>Ts',
         function()
           return require('telescope.builtin').builtin()
         end,
@@ -149,7 +148,7 @@ return {
         desc = '[S]earch [S]elect Telescope',
       },
       {
-        '<leader>sf',
+        '<leader>Tf',
         function()
           return require('telescope.builtin').find_files()
         end,
@@ -157,7 +156,7 @@ return {
         desc = '[S]earch [F]iles',
       },
       {
-        '<leader>sk',
+        '<leader>Tk',
         function()
           return require('telescope.builtin').keymaps()
         end,
@@ -165,7 +164,7 @@ return {
         desc = '[S]earch [K]eymaps',
       },
       {
-        '<leader>sh',
+        '<leader>Th',
         function()
           return require('telescope.builtin').help_tags()
         end,
@@ -204,7 +203,9 @@ return {
 
       -- Enable telescope extensions, if they are installed
       pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
+      if not nixCats 'general.extra' then
+        pcall(require('telescope').load_extension, 'ui-select')
+      end
 
       vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
     end,
