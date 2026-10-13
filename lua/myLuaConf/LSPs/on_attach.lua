@@ -22,13 +22,8 @@ return function(_, bufnr)
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
-  -- NOTE: why are these functions that call the telescope builtin?
-  -- because otherwise they would load telescope eagerly when this is defined.
-  -- due to us using the on_require handler to make sure it is available.
+  -- Load Telescope only when one of these LSP pickers is used.
   if nixCats 'general.telescope' then
-    nmap('gr', function()
-      require('telescope.builtin').lsp_references()
-    end, '[G]oto [R]eferences')
     nmap('gI', function()
       require('telescope.builtin').lsp_implementations()
     end, '[G]oto [I]mplementation')
@@ -38,7 +33,7 @@ return function(_, bufnr)
     nmap('<leader>ws', function()
       require('telescope.builtin').lsp_dynamic_workspace_symbols()
     end, '[W]orkspace [S]ymbols')
-  end -- TODO: someone who knows the builtin versions of these to do instead help me out please.
+  end
 
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 

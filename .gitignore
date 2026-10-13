@@ -1,3 +1,8 @@
 /result
 /tags
 /.luarc.json
+
+.agents
+.codex
+.claude
+.mcp.json
