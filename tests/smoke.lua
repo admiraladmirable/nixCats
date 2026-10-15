@@ -27,6 +27,20 @@ local ok, err = pcall(function()
   assert(type(require('dap').continue) == 'function')
   assert(vim.v.errmsg == '', vim.v.errmsg)
 
+  -- Edgy must not undo manual resizing of Snacks terminal splits.
+  require('lze').trigger_load('edgy')
+  local terminal = Snacks.win({ style = 'terminal', position = 'bottom', height = 0.4 })
+  vim.wait(300)
+  local height = vim.api.nvim_win_get_height(terminal.win)
+  vim.api.nvim_win_set_height(terminal.win, height + 3)
+  local resized_height = vim.api.nvim_win_get_height(terminal.win)
+  assert(resized_height ~= height, 'terminal split did not resize')
+  vim.api.nvim_exec_autocmds('WinResized', {})
+  vim.wait(500)
+  local final_height = vim.api.nvim_win_get_height(terminal.win)
+  terminal:close()
+  assert(final_height == resized_height, 'terminal split snapped back after resizing')
+
   -- Exercise a formatter using a real buffer and the packaged executable.
   vim.cmd.enew()
   vim.bo.filetype = 'lua'
@@ -39,6 +53,6 @@ if not ok then
   vim.api.nvim_err_writeln(tostring(err))
   vim.cmd.cquit(1)
 else
-  print('Wrapper startup, categories, tools, lazy loading, and formatting passed')
+  print('Wrapper startup, categories, tools, lazy loading, terminal resizing, and formatting passed')
   vim.cmd('qa!')
 end

@@ -64,6 +64,8 @@ return {
         },
       }
 
+      -- Let Snacks manage terminal splits so mouse-dragged sizes are preserved.
+      -- Edgy restores managed windows to their configured size on WinResized.
       for _, pos in ipairs { 'top', 'bottom', 'left', 'right' } do
         opts[pos] = opts[pos] or {}
         table.insert(opts[pos], {
@@ -75,15 +77,6 @@ return {
               and trouble.type == 'split'
               and trouble.relative == 'editor'
               and not vim.w[win].trouble_preview
-          end,
-        })
-        table.insert(opts[pos], {
-          ft = 'snacks_terminal',
-          size = { height = 0.4 },
-          title = '%{b:snacks_terminal.id}: %{b:term_title}',
-          filter = function(_, win)
-            local snacks_win = vim.w[win].snacks_win
-            return snacks_win and snacks_win.position == pos and snacks_win.relative == 'editor'
           end,
         })
       end
