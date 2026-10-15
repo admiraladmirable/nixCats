@@ -21,7 +21,7 @@ M.for_cat = {
     set_lazy = false,
     modify = function(plugin)
         if type(plugin.for_cat) == "table" and plugin.for_cat.cat ~= nil then
-            if vim.g[ [[nixCats-special-rtp-entry-nixCats]] ] ~= nil then
+            if require('nixCatsUtils').isNixCats then
                 plugin.enabled = nixCats(plugin.for_cat.cat) or false
             else
                 plugin.enabled = plugin.for_cat.default

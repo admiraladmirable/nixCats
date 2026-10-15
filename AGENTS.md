@@ -1,16 +1,17 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
+- `module.nix` defines nix-wrapper-modules plugin/tool specs; `flake.nix` exports packages and install modules.
 - Root `init.lua` bootstraps fallback `nixCatsUtils` setup then delegates to `lua/myLuaConf`.
 - `lua/myLuaConf` holds domain modules (`plugins/`, `LSPs/`, `format.lua`, `lint.lua`, `debug.lua`) loaded conditionally through `nixCats` categories.
-- `lua/nixCatsUtils` provides helper handlers (e.g., `lzUtils.for_cat`) reused by LZE plugin specs.
+- `lua/nixCatsUtils` adapts the wrapper info plugin to existing category checks and provides helper handlers (e.g., `lzUtils.for_cat`) reused by LZE plugin specs.
 - `after/plugin/` contains compatibility examples that run after Neovim loads.
 
 ## Build, Test, and Development Commands
 - `nix develop` drops you into a shell with the default `nixCats` Neovim build on `PATH`.
 - `nix build .#nixCats` produces the configured Neovim package; use `result/bin/nixCats` to launch.
 - `nix run .#nixCats -- --headless "+q"` validates startup without opening UI.
-- `nix flake check` ensures the flake evaluates for all declared systems.
+- `nix flake check` evaluates outputs and runs `tests/smoke.lua` and `tests/fallback.lua` on the current system.
 
 ## Coding Style & Naming Conventions
 - Lua sources prefer two-space indentation outside plugin specs; respect existing tabs within LZE tables.

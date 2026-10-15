@@ -8,7 +8,7 @@
 require('nixCatsUtils.catPacker').setup({
 --[[ ------------------------------------------ ]]
 --[[ The way to think of this is, its very      ]]
---[[ similar to the main nix file for nixCats   ]]
+--[[ mirrors the specs in module.nix   ]]
 --[[                                            ]]
 --[[ It can be used to download your plugins,   ]]
 --[[ and it has an opt for optional plugins.    ]]

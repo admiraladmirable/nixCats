@@ -40,7 +40,7 @@ end
 -- NOTE: This file uses lzextras.lsp handler https://github.com/BirdeeHub/lzextras?tab=readme-ov-file#lsp-handler
 -- This is a slightly more performant fallback function
 -- for when you don't provide a filetype to trigger on yourself.
--- nixCats gives us the paths, which is faster than searching the rtp!
+-- The wrapper's info plugin provides paths through our local adapter.
 local old_ft_fallback = require('lze').h.lsp.get_ft_fallback()
 require('lze').h.lsp.set_ft_fallback(function(name)
   local lspcfg = nixCats.pawsible { 'allPlugins', 'opt', 'nvim-lspconfig' } or nixCats.pawsible { 'allPlugins', 'start', 'nvim-lspconfig' }
@@ -380,7 +380,7 @@ require('lze').load {
       settings = {
         nixd = {
           -- nixd requires some configuration.
-          -- luckily, the nixCats plugin is here to pass whatever we need!
+          -- The local adapter reads nixdExtras from the wrapper's info plugin.
           -- we passed this in via the `extra` table in our packageDefinitions
           -- for additional configuration options, refer to:
           -- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
